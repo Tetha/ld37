@@ -105,6 +105,14 @@ public class Room extends Actor {
         this.partOfRoom = partOfRoom;
     }
     
+    public int getTileHeight() {
+        return this.height;
+    }
+    
+    public int getTileWidth() {
+        return this.width;
+    }
+    
     public void setTileX(int newTileX) {
         this.tileX = newTileX;
     }
@@ -124,5 +132,9 @@ public class Room extends Actor {
                 }
             }
         }
+    }
+
+    public boolean isPartOfRoom(int x, int y) {
+        return partOfRoom[y][x];
     }
 }

@@ -1,6 +1,7 @@
 package org.subquark.tetris_station.rooms;
 
 import org.subquark.tetris_station.GameConstants;
+import org.subquark.tetris_station.build_overlay.BuildOverlay;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -38,4 +39,18 @@ public class RoomGridDisplay extends Actor {
             }
         }
     }
+
+    public boolean areStageCoordsOnGrid(float x, float y) {
+        return 0 <= x && x <= GameConstants.GRID_WIDTH_TILE * GameConstants.TILE_WIDTH_PX
+                && 0 <= y && y <= GameConstants.GRID_HEIGHT_TILE * GameConstants.TILE_HEIGHT_PX;
+    }
+    
+    public int xPixelToGridTile(float x) {
+        return (int)(x / GameConstants.TILE_WIDTH_PX);
+    }
+    
+    public int yPixelToGridTile(float y) {
+        return (int)(y / GameConstants.TILE_HEIGHT_PX);
+    }
+    
 }

@@ -1,5 +1,7 @@
 package org.subquark.tetris_station;
 
+import org.subquark.tetris_station.build_overlay.BuildOverlay;
+import org.subquark.tetris_station.build_overlay.RoomOverlay;
 import org.subquark.tetris_station.cards.BigCardDisplay;
 import org.subquark.tetris_station.cards.BigCardOverlay;
 import org.subquark.tetris_station.cards.Card;
@@ -53,6 +55,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    Group scores = new Group();
 	    gameArea.addActor(scores);
 	    scores.setX(620);
+
 
 	    
 	    HostileShipDisplay hostileShipDisplay = new HostileShipDisplay(gameState);
@@ -110,6 +113,11 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         warpCore.setTileY(8);
         grid.addRoom(warpCore);
         
+        
+        RoomOverlay overlay = new RoomOverlay();
+        gameArea.addActor(overlay);
+        overlay.setRoom(Room.createDefenseGun());
+        gameArea.addActor(new BuildOverlay(grid.getDisplay(), overlay));
 	    Gdx.input.setInputProcessor(stage);
 	}
 

@@ -8,10 +8,16 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 public class RoomGrid {
     private List<Room> rooms = new ArrayList<Room>();
     private Group actorGroup;
+    private RoomGridDisplay display;
     
     public RoomGrid(Group actorGroup) {
         this.actorGroup = actorGroup;
-        actorGroup.addActor(new RoomGridDisplay());
+        this.display = new RoomGridDisplay();
+        actorGroup.addActor(display);
+    }
+    
+    public RoomGridDisplay getDisplay() {
+        return display;
     }
     
     public void addRoom(Room room) {
