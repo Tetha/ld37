@@ -36,28 +36,34 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         gameState.shipPosition = 3;
         gameState.hyperPointsEarned = 7;
         gameState.maxCards = 5;
+        gameState.cards.add(Card.createBuildEngineCard());
         
         Group gameArea = new Group();
         stage.addActor(gameArea);
         
+        Group rooms = new Group();
+        rooms.setY(100);
+        RoomGrid grid = new RoomGrid(rooms);
+        gameArea.addActor(rooms);
+        
+        RoomOverlay overlay = new RoomOverlay(grid);
+        rooms.addActor(overlay);
+        overlay.setRoom(Room.createDefenseGun());
+        BuildOverlay buildOverlay = new BuildOverlay(grid.getDisplay(), overlay, grid); 
+        gameArea.addActor(buildOverlay);
+        
         Table cardLayout = new Table();
-        BigCardOverlay bigCardOverlay = new BigCardOverlay(gameArea, cardLayout);
+        BigCardOverlay bigCardOverlay = new BigCardOverlay(gameArea, cardLayout, buildOverlay);
         stage.addActor(cardLayout);
         
 	    Group hand = new Group();
 	    gameArea.addActor(hand);
 	    new HandDisplay(gameState, hand, bigCardOverlay);
-	    
-	    Card testCard = new Card();
-	    testCard.headline = "Build Eng ine";
-	    gameState.cards.add(testCard);
-	    
+	    	    
 	    Group scores = new Group();
 	    gameArea.addActor(scores);
 	    scores.setX(620);
 
-
-	    
 	    HostileShipDisplay hostileShipDisplay = new HostileShipDisplay(gameState);
 	    scores.addActor(hostileShipDisplay);
 	    
@@ -72,11 +78,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    HyperPointDisplay hyperDisplay = new HyperPointDisplay(gameState);
 	    scores.addActor(hyperDisplay);
 	    hyperDisplay.setY(275);
-	    
-	    Group rooms = new Group();
-	    rooms.setY(100);
-	    RoomGrid grid = new RoomGrid(rooms);
-	    gameArea.addActor(rooms);
+
 	    
 	    Room transmitter1_1 =Room.createEnergyTransmitter1();
 	    transmitter1_1.setTileX(4);
@@ -112,12 +114,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         warpCore.setTileX(4);
         warpCore.setTileY(8);
         grid.addRoom(warpCore);
-        
-        
-        RoomOverlay overlay = new RoomOverlay(grid);
-        rooms.addActor(overlay);
-        overlay.setRoom(Room.createDefenseGun());
-        gameArea.addActor(new BuildOverlay(grid.getDisplay(), overlay, grid));
+
 	    Gdx.input.setInputProcessor(stage);
 	}
 

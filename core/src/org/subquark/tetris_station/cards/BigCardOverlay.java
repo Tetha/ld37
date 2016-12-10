@@ -2,6 +2,8 @@ package org.subquark.tetris_station.cards;
 
 import java.util.Objects;
 
+import org.subquark.tetris_station.build_overlay.BuildOverlay;
+
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -10,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.VerticalGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class BigCardOverlay {
@@ -18,7 +19,7 @@ public class BigCardOverlay {
     private Table layout;
     private Group gameGroup;
     
-    public BigCardOverlay(Group gameGroup, Table layout) {
+    public BigCardOverlay(Group gameGroup, Table layout, final BuildOverlay buildOverlay) {
         this.layout = layout;
         layout.setFillParent(true);
         display = new BigCardDisplay();
@@ -37,6 +38,17 @@ public class BigCardOverlay {
         });
         
         Button playButton = new TextButton("Play", style);
+        playButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Button Changed");
+                if (display.getCard().playAction != null) {
+                    display.getCard().playAction.run(buildOverlay);
+                }
+                // TODO: remove card from hand
+                removeCard();
+            }
+        });
         Button discardButton = new TextButton("Discard", style);
 
         Table buttonLayout = new Table();

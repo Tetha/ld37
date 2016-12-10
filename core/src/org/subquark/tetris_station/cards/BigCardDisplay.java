@@ -45,6 +45,10 @@ public class BigCardDisplay extends Actor {
         this.layout.add(cardHeading).row();
     }
     
+    public Card getCard() {
+        return this.card;
+    }
+    
     public void setCard(Card card) {
         this.card = card;
         this.cardHeading.setText(card.headline);

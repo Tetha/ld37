@@ -1,6 +1,7 @@
 package org.subquark.tetris_station.build_overlay;
 
 import org.subquark.tetris_station.GameConstants;
+import org.subquark.tetris_station.rooms.Room;
 import org.subquark.tetris_station.rooms.RoomGrid;
 import org.subquark.tetris_station.rooms.RoomGridDisplay;
 
@@ -51,5 +52,13 @@ public class BuildOverlay extends Actor {
             }
         });
     }
-    
+
+    public void enableWithRoom(Room room) {
+        roomOverlay.setRoom(room);
+        roomOverlay.setTouchable(Touchable.enabled);
+        this.setTouchable(Touchable.enabled);
+        
+        roomOverlay.setVisible(true);
+        this.setVisible(true);
+    }
 }
