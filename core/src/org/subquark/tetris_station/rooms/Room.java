@@ -20,22 +20,99 @@ public class Room extends Actor {
     
     private Texture roomSource;
     
-    public Room() {
+    public static Room createEnergyTransmitter1() {        
+        int width = 4;
+        int height = 2;
+        boolean[][] partOfRoom = new boolean[][] {
+                {true, true, true, true},
+                {true, true, true, true},
+        };
+        
+        return new Room(width, height, partOfRoom, Color.BLUE);
+    }
+    
+    public static Room createEnergyTransmitter2() {        
+        int width = 2;
+        int height = 4;
+        boolean[][] partOfRoom = new boolean[][] {
+                {true, true},
+                {true, true},
+                {true, true},
+                {true, true}
+        };
+        
+        return new Room(width, height, partOfRoom, Color.CYAN);
+    }
+    
+    public static Room createMetalGenerator() {
+        int width = 4;
+        int height = 4;
+        boolean[][] partOfRoom = new boolean[][] {
+                {false, true, true, false},
+                {true,  true, true,  true},
+                {true,  true, true,  true},
+                {false, true, true, false}
+        };
+        
+        return new Room(width, height, partOfRoom, Color.MAGENTA);        
+    }
+    
+    public static Room createDefenseGun() {
+        int width = 4;
+        int height = 4;
+        boolean[][] partOfRoom = new boolean[][] {
+                {true, true, false, false},
+                {true, true, true,  true},
+                {true, true, true,  true},
+                {true, true, false, false}
+        };
+        
+        return new Room(width, height, partOfRoom, Color.RED);        
+    }
+    
+    public static Room createEngine() {
+        int width = 4;
+        int height = 4;
+        boolean[][] partOfRoom = new boolean[][] {
+                {true, true, true, false},
+                {false, false, true,  true},
+                {false, false, true,  true},
+                {true, true, true, false}
+        };
+        
+        return new Room(width, height, partOfRoom, Color.YELLOW);        
+    }
+    public static Room createWarpCore() {
+        int width = 4;
+        int height = 3;
+        boolean[][] partOfRoom = new boolean[][] {
+                {true, false, false, true},                
+                {true, true, true,  true},
+                {false, true, true,  false},
+        };
+        
+        return new Room(width, height, partOfRoom, Color.GREEN);        
+    }
+    
+    private Room(int width, int height, boolean[][] partOfRoom, Color color) {
         Pixmap map = new Pixmap(GameConstants.TILE_WIDTH_PX, GameConstants.TILE_HEIGHT_PX, Pixmap.Format.RGB565);
-        map.setColor(Color.RED);
+        map.setColor(color);
         map.fill();
         roomSource = new Texture(map);
         
-        width = 5;
-        height = 5;
-        partOfRoom = new boolean[][] {
-                {false, true, true, false, false},
-                {false, true, true, false, false},
-                {false, false, true, true, false},
-                {false, false, true, true, false},
-                {false, false, true, true, false}
-        };
+        this.width = width;
+        this.height = height;
+        this.partOfRoom = partOfRoom;
     }
+    
+    public void setTileX(int newTileX) {
+        this.tileX = newTileX;
+    }
+    
+    public void setTileY(int newTileY) {
+        this.tileY = newTileY;
+    }
+
     @Override
     public void draw (Batch batch, float parentAlpha) {
         for (int y = 0; y < height; y++) {

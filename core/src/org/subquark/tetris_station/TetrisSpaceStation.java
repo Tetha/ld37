@@ -17,7 +17,41 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	public void create () {
 	    stage = new Stage(new StretchViewport(800, 600));
 	    
-	    stage.addActor(new Room());
+	    Room transmitter1_1 =Room.createEnergyTransmitter1();
+	    transmitter1_1.setTileX(4);
+	    transmitter1_1.setTileY(0);
+	    stage.addActor(transmitter1_1);
+
+	    Room transmitter1_2 = Room.createEnergyTransmitter1();
+	    transmitter1_2.setTileX(5);
+	    transmitter1_2.setTileY(6);
+	    stage.addActor(transmitter1_2);
+	        
+	    Room transmitter2 = Room.createEnergyTransmitter2();
+	    transmitter2.setTileX(5);
+	    transmitter2.setTileY(2);
+	    stage.addActor(transmitter2);
+	    
+        Room matterGenerator = Room.createMetalGenerator();
+        matterGenerator.setTileX(8);
+        matterGenerator.setTileY(0);
+        stage.addActor(matterGenerator);
+        
+        Room defenseGun = Room.createDefenseGun();
+        defenseGun.setTileX(9);
+        defenseGun.setTileY(6);
+        stage.addActor(defenseGun);
+        
+        Room engine = Room.createEngine();
+        engine.setTileX(1);
+        engine.setTileY(5);
+        stage.addActor(engine);
+	    
+        Room warpCore = Room.createWarpCore();
+        warpCore.setTileX(4);
+        warpCore.setTileY(8);
+        stage.addActor(warpCore);
+        
 	    Gdx.input.setInputProcessor(stage);
 	}
 
