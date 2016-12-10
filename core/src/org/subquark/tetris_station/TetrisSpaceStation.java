@@ -114,8 +114,8 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         grid.addRoom(warpCore);
         
         
-        RoomOverlay overlay = new RoomOverlay();
-        gameArea.addActor(overlay);
+        RoomOverlay overlay = new RoomOverlay(grid);
+        rooms.addActor(overlay);
         overlay.setRoom(Room.createDefenseGun());
         gameArea.addActor(new BuildOverlay(grid.getDisplay(), overlay));
 	    Gdx.input.setInputProcessor(stage);

@@ -117,8 +117,16 @@ public class Room extends Actor {
         this.tileX = newTileX;
     }
     
+    public int getTileX() {
+        return this.tileX;
+    }
+    
     public void setTileY(int newTileY) {
         this.tileY = newTileY;
+    }
+    
+    public int getTileY() {
+        return this.tileY;
     }
 
     @Override

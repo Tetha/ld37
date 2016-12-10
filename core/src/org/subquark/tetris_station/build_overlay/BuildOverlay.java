@@ -20,10 +20,9 @@ public class BuildOverlay extends Actor {
         this.addListener(new InputListener() {
             @Override
             public boolean mouseMoved(InputEvent e, float x, float y) {
-                System.out.println("Mouse moved");
                 if (gridDisplay.areStageCoordsOnGrid(x, y)) {
                     roomOverlay.setTileX(gridDisplay.xPixelToGridTile(x));
-                    roomOverlay.setTileY(gridDisplay.yPixelToGridTile(y) + 1);
+                    roomOverlay.setTileY(gridDisplay.yPixelToGridTile(y));
                     roomOverlay.checkValidity();
                 }
                 return false;
