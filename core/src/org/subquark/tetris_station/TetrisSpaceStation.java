@@ -1,5 +1,7 @@
 package org.subquark.tetris_station;
 
+import org.subquark.tetris_station.cards.BigCardDisplay;
+import org.subquark.tetris_station.cards.BigCardOverlay;
 import org.subquark.tetris_station.cards.Card;
 import org.subquark.tetris_station.cards.HandDisplay;
 import org.subquark.tetris_station.cards.SmallCardDisplay;
@@ -15,6 +17,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class TetrisSpaceStation extends ApplicationAdapter {
@@ -31,16 +35,23 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         gameState.hyperPointsEarned = 7;
         gameState.maxCards = 5;
         
+        Group gameArea = new Group();
+        stage.addActor(gameArea);
+        
+        Table cardLayout = new Table();
+        BigCardOverlay bigCardOverlay = new BigCardOverlay(gameArea, cardLayout);
+        stage.addActor(cardLayout);
+        
 	    Group hand = new Group();
-	    stage.addActor(hand);
-	    new HandDisplay(gameState, hand);
+	    gameArea.addActor(hand);
+	    new HandDisplay(gameState, hand, bigCardOverlay);
 	    
 	    Card testCard = new Card();
 	    testCard.headline = "Build Eng ine";
 	    gameState.cards.add(testCard);
 	    
 	    Group scores = new Group();
-	    stage.addActor(scores);
+	    gameArea.addActor(scores);
 	    scores.setX(620);
 
 	    
@@ -62,7 +73,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    Group rooms = new Group();
 	    rooms.setY(100);
 	    RoomGrid grid = new RoomGrid(rooms);
-	    stage.addActor(rooms);
+	    gameArea.addActor(rooms);
 	    
 	    Room transmitter1_1 =Room.createEnergyTransmitter1();
 	    transmitter1_1.setTileX(4);

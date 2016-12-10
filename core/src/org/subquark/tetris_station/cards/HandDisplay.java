@@ -9,10 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 public class HandDisplay {
-    private GameState gameState;
-    private Group actorGroup;
+    private final GameState gameState;
+    private final Group actorGroup;
     
-    public HandDisplay(GameState gameState, Group actorGroup) {
+    public HandDisplay(final GameState gameState, final Group actorGroup, final BigCardOverlay bigDisplay) {
         this.gameState = gameState;
         this.actorGroup = actorGroup;
         
@@ -26,6 +26,9 @@ public class HandDisplay {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     System.out.println("Card #" + cardIndex + " clicked!");
+                    if (0 <= cardIndex && cardIndex < gameState.cards.size()) {
+                        bigDisplay.setCard(gameState.cards.get(cardIndex));
+                    }
                     return true;
                 }
             });
