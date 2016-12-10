@@ -63,4 +63,18 @@ public class RoomOverlay extends Actor {
             }
         }
     }
+
+    public void checkValidity() {
+        System.out.println("tileY: " + tileY);
+        if (!(0 <= tileX && tileX + room.getTileWidth() <= GameConstants.GRID_WIDTH_TILE)) {
+            setValidPosition(false);
+            return;
+        }
+        if (!(tileY <= GameConstants.GRID_HEIGHT_TILE && room.getTileHeight() <= tileY)) {
+            setValidPosition(false);
+            return;
+        }
+        
+        setValidPosition(true);
+    }
 }

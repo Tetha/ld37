@@ -24,6 +24,7 @@ public class BuildOverlay extends Actor {
                 if (gridDisplay.areStageCoordsOnGrid(x, y)) {
                     roomOverlay.setTileX(gridDisplay.xPixelToGridTile(x));
                     roomOverlay.setTileY(gridDisplay.yPixelToGridTile(y) + 1);
+                    roomOverlay.checkValidity();
                 }
                 return false;
             }
