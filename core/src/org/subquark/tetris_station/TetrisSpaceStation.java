@@ -1,5 +1,8 @@
 package org.subquark.tetris_station;
 
+import org.subquark.tetris_station.cards.Card;
+import org.subquark.tetris_station.cards.HandDisplay;
+import org.subquark.tetris_station.cards.SmallCardDisplay;
 import org.subquark.tetris_station.rooms.Room;
 import org.subquark.tetris_station.rooms.RoomGrid;
 import org.subquark.tetris_station.scores.HostileShipDisplay;
@@ -21,16 +24,25 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	public void create () {
 	    stage = new Stage(new StretchViewport(800, 600));
 	    
-	    GameState gameState = new GameState();
+	    GameState gameState = new GameState();   
+        gameState.hostileShips = 5;
+        gameState.availableMetal = 12;
+        gameState.shipPosition = 3;
+        gameState.hyperPointsEarned = 7;
+        gameState.maxCards = 5;
+        
+	    Group hand = new Group();
+	    stage.addActor(hand);
+	    new HandDisplay(gameState, hand);
+	    
+	    Card testCard = new Card();
+	    testCard.headline = "Build Eng ine";
+	    gameState.cards.add(testCard);
 	    
 	    Group scores = new Group();
 	    stage.addActor(scores);
 	    scores.setX(620);
-	    
-	    gameState.hostileShips = 5;
-	    gameState.availableMetal = 12;
-	    gameState.shipPosition = 3;
-	    gameState.hyperPointsEarned = 7;
+
 	    
 	    HostileShipDisplay hostileShipDisplay = new HostileShipDisplay(gameState);
 	    scores.addActor(hostileShipDisplay);
@@ -48,6 +60,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    hyperDisplay.setY(275);
 	    
 	    Group rooms = new Group();
+	    rooms.setY(100);
 	    RoomGrid grid = new RoomGrid(rooms);
 	    stage.addActor(rooms);
 	    

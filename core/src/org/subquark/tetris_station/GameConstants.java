@@ -16,4 +16,6 @@ public class GameConstants {
     public static final int SUN_DISTANCE_THRESHOLD = 3;
     
     public static final int MAX_HYPER_POINTS = 10;
+    
+    public static final int MAX_MAX_CARDS = 5;
 }
