@@ -1,12 +1,12 @@
 package org.subquark.tetris_station;
 
 import org.subquark.tetris_station.rooms.Room;
+import org.subquark.tetris_station.rooms.RoomGrid;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
@@ -17,40 +17,44 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	public void create () {
 	    stage = new Stage(new StretchViewport(800, 600));
 	    
+	    Group rooms = new Group();
+	    RoomGrid grid = new RoomGrid(rooms);
+	    stage.addActor(rooms);
+	    
 	    Room transmitter1_1 =Room.createEnergyTransmitter1();
 	    transmitter1_1.setTileX(4);
 	    transmitter1_1.setTileY(0);
-	    stage.addActor(transmitter1_1);
+	    grid.addRoom(transmitter1_1);
 
 	    Room transmitter1_2 = Room.createEnergyTransmitter1();
 	    transmitter1_2.setTileX(5);
 	    transmitter1_2.setTileY(6);
-	    stage.addActor(transmitter1_2);
+	    grid.addRoom(transmitter1_2);
 	        
 	    Room transmitter2 = Room.createEnergyTransmitter2();
 	    transmitter2.setTileX(5);
 	    transmitter2.setTileY(2);
-	    stage.addActor(transmitter2);
+	    grid.addRoom(transmitter2);
 	    
         Room matterGenerator = Room.createMetalGenerator();
         matterGenerator.setTileX(8);
         matterGenerator.setTileY(0);
-        stage.addActor(matterGenerator);
+        grid.addRoom(matterGenerator);
         
         Room defenseGun = Room.createDefenseGun();
         defenseGun.setTileX(9);
         defenseGun.setTileY(6);
-        stage.addActor(defenseGun);
+        grid.addRoom(defenseGun);
         
         Room engine = Room.createEngine();
         engine.setTileX(1);
         engine.setTileY(5);
-        stage.addActor(engine);
+        grid.addRoom(engine);
 	    
         Room warpCore = Room.createWarpCore();
         warpCore.setTileX(4);
         warpCore.setTileY(8);
-        stage.addActor(warpCore);
+        grid.addRoom(warpCore);
         
 	    Gdx.input.setInputProcessor(stage);
 	}
