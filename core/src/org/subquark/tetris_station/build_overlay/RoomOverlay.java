@@ -46,15 +46,29 @@ public class RoomOverlay extends Actor {
         this.room = room;
     }
     
+    public Room getRoom() {
+        return this.room;
+    }
+    
     public void setValidPosition(boolean valid) {
         this.isValidPosition = valid;
     }
+    
+    public boolean isValidLocation() {
+        return this.isValidPosition;
+    }
+    
     public void setTileX(int tileX) {
         this.tileX = tileX;
     }
     
     public void setTileY(int tileY) {
         this.tileY = tileY;
+    }
+    
+    public void initRoom() {
+        room.setTileX(tileX);
+        room.setTileY(tileY);
     }
     
     @Override
@@ -95,4 +109,6 @@ public class RoomOverlay extends Actor {
         }
         setValidPosition(true);
     }
+
+
 }
