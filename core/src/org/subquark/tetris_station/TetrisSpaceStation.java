@@ -3,7 +3,9 @@ package org.subquark.tetris_station;
 import org.subquark.tetris_station.rooms.Room;
 import org.subquark.tetris_station.rooms.RoomGrid;
 import org.subquark.tetris_station.scores.HostileShipDisplay;
+import org.subquark.tetris_station.scores.HyperPointDisplay;
 import org.subquark.tetris_station.scores.MetalDisplay;
+import org.subquark.tetris_station.scores.SolarDistanceDisplay;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -27,6 +29,8 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    
 	    gameState.hostileShips = 5;
 	    gameState.availableMetal = 12;
+	    gameState.shipPosition = 3;
+	    gameState.hyperPointsEarned = 7;
 	    
 	    HostileShipDisplay hostileShipDisplay = new HostileShipDisplay(gameState);
 	    scores.addActor(hostileShipDisplay);
@@ -34,6 +38,14 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    MetalDisplay metalDisplay = new MetalDisplay(gameState);
 	    scores.addActor(metalDisplay);
 	    metalDisplay.setY(50);
+	    
+	    SolarDistanceDisplay distanceDisplay = new SolarDistanceDisplay(gameState);
+	    scores.addActor(distanceDisplay);
+	    distanceDisplay.setY(225);
+	    
+	    HyperPointDisplay hyperDisplay = new HyperPointDisplay(gameState);
+	    scores.addActor(hyperDisplay);
+	    hyperDisplay.setY(275);
 	    
 	    Group rooms = new Group();
 	    RoomGrid grid = new RoomGrid(rooms);
