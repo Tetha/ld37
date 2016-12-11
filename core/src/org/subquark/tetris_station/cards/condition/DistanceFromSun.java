@@ -11,7 +11,7 @@ public class DistanceFromSun implements PlayCondition {
     }
     @Override
     public void setPlayable(GameState gs, Card c) {
-        if (gs.shipPosition >= minimum) {
+        if (gs.shipPosition < minimum) {
             c.canPlay = true;
         } else {
             c.canPlay = false;

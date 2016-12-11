@@ -188,7 +188,7 @@ public class Card {
         Card result = new Card();
         result.headline = "Combat Thrust";
         
-        result.playCondition = new DistanceFromSun(1);
+        result.playCondition = new DistanceFromSun(GameConstants.MAX_SUN_DISTANCE-1);
         result.playDescription = " -1 distance to the sun\n"
                                + " -2 hostile fighters";
         result.playAction = new CombatThrustAction();
