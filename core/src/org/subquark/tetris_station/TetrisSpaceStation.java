@@ -128,7 +128,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         });
         scores.add(activateButton).pad(10).row();
         
-        
+/*        
 	    Room transmitter1_1 =Room.createEnergyTransmitter1();
 	    transmitter1_1.setTileX(4);
 	    transmitter1_1.setTileY(0);
@@ -163,7 +163,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         warpCore.setTileX(4);
         warpCore.setTileY(8);
         grid.addRoom(warpCore);
-
+*/
 	    Gdx.input.setInputProcessor(stage);
 	}
 

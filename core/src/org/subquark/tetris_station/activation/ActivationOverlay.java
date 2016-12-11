@@ -7,6 +7,7 @@ import org.subquark.tetris_station.GameConstants;
 import org.subquark.tetris_station.GameState;
 import org.subquark.tetris_station.activation.actions.MoveCloserToSun;
 import org.subquark.tetris_station.activation.actions.PostActivationAction;
+import org.subquark.tetris_station.activation.actions.RefillHand;
 import org.subquark.tetris_station.build_overlay.BuildOverlay;
 import org.subquark.tetris_station.rooms.Room;
 import org.subquark.tetris_station.rooms.RoomGridDisplay;
@@ -24,6 +25,8 @@ public class ActivationOverlay extends Actor {
     
     public ActivationOverlay(final RoomActivationOverlay roomOverlay, final RoomGridDisplay gridDisplay, final GameState gameState, List<Group> exclusiveGroups) {
         postActivationActions.add(new MoveCloserToSun());
+        postActivationActions.add(new RefillHand());
+        
         this.roomOverlay = roomOverlay;
         this.exclusiveGroups = exclusiveGroups;
         
