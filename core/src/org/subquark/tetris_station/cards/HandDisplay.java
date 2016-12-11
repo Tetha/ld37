@@ -20,7 +20,6 @@ public class HandDisplay {
             SmallCardDisplay display = new SmallCardDisplay(gameState, i);
             display.setX((SmallCardDisplay.CARD_WIDTH + 10) * i );
             display.setBounds((SmallCardDisplay.CARD_WIDTH + 10) * i, 0, SmallCardDisplay.CARD_WIDTH, SmallCardDisplay.CARD_HEIGHT);
-            display.setDebug(true);
             display.addListener(new InputListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {;

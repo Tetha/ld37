@@ -7,9 +7,11 @@ import org.subquark.tetris_station.GameConstants;
 import org.subquark.tetris_station.GameState;
 import org.subquark.tetris_station.activation.actions.ApplyDamageFromFighters;
 import org.subquark.tetris_station.activation.actions.ApplyDamageFromSun;
+import org.subquark.tetris_station.activation.actions.LoseWithNoHealth;
 import org.subquark.tetris_station.activation.actions.MoveCloserToSun;
 import org.subquark.tetris_station.activation.actions.PostActivationAction;
 import org.subquark.tetris_station.activation.actions.RefillHand;
+import org.subquark.tetris_station.activation.actions.WinWithMaxHyperPoints;
 import org.subquark.tetris_station.build_overlay.BuildOverlay;
 import org.subquark.tetris_station.rooms.Room;
 import org.subquark.tetris_station.rooms.RoomGridDisplay;
@@ -25,10 +27,17 @@ public class ActivationOverlay extends Actor {
     private RoomActivationOverlay roomOverlay;
     private List<Group> exclusiveGroups;
     
-    public ActivationOverlay(final RoomActivationOverlay roomOverlay, final RoomGridDisplay gridDisplay, final GameState gameState, List<Group> exclusiveGroups) {
+    public ActivationOverlay(final RoomActivationOverlay roomOverlay,
+                             final RoomGridDisplay gridDisplay,
+                             final GameState gameState,
+                             Group lossScreen,
+                             Group winScreen,
+                             List<Group> exclusiveGroups) {
         postActivationActions.add(new ApplyDamageFromFighters());
         postActivationActions.add(new ApplyDamageFromSun());
         postActivationActions.add(new MoveCloserToSun());
+        postActivationActions.add(new LoseWithNoHealth());
+        postActivationActions.add(new WinWithMaxHyperPoints());
         postActivationActions.add(new RefillHand());
         
         this.roomOverlay = roomOverlay;
@@ -54,7 +63,7 @@ public class ActivationOverlay extends Actor {
                     roomOverlay.activateRooms();
                     
                     for (PostActivationAction action : postActivationActions) {
-                        action.act(gameState);
+                        action.act(gameState, lossScreen, winScreen);
                     }
                     
                     roomOverlay.setTouchable(Touchable.disabled);

@@ -20,17 +20,25 @@ import org.subquark.tetris_station.scores.SolarDistanceDisplay;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class TetrisSpaceStation extends ApplicationAdapter {
@@ -50,8 +58,40 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         gameState.deck = DeckBuilder.createDefaultDeck();
         gameState.refreshHand();
         
+        
         Group gameArea = new Group();
         stage.addActor(gameArea);
+        
+        Group lossScreen = new Group();
+        stage.addActor(lossScreen);
+        LabelStyle labelStyle = new LabelStyle();
+        labelStyle.font = new BitmapFont();
+        Pixmap redBox = new Pixmap(1, 1, Pixmap.Format.RGB565);
+        redBox.setColor(Color.RED);
+        redBox.fill();
+        labelStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(redBox)));
+        Label bigRedScreen = new Label("She' breaking apart! you hear someone yell.\nThen loud screeching, crashing, tearing...\nThen nothing.\nYou lost :(", labelStyle);
+        bigRedScreen.setWidth(800);
+        bigRedScreen.setHeight(600);
+        lossScreen.addActor(bigRedScreen);
+        lossScreen.setVisible(false);
+        lossScreen.setTouchable(Touchable.disabled);
+        
+        Group winScreen = new Group();
+        stage.addActor(winScreen);
+        LabelStyle winLabelStyle = new LabelStyle();
+        winLabelStyle.font = new BitmapFont();
+        
+        Pixmap greenBox = new Pixmap(1, 1, Pixmap.Format.RGB565);
+        greenBox.setColor(0, 0.8f, 0, 1f);
+        greenBox.fill();
+        winLabelStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(greenBox)));
+        Label bigGreenScreen = new Label("You hear the warp condensators discharge with a loud screeching\nThe solar system disappears\nYou have won :)", winLabelStyle);
+        bigGreenScreen.setWidth(800);
+        bigGreenScreen.setHeight(600);
+        winScreen.addActor(bigGreenScreen);
+        winScreen.setVisible(false);
+        winScreen.setTouchable(Touchable.disabled);
         
         Group rooms = new Group();
         rooms.setY(100);
@@ -72,6 +112,8 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         ActivationOverlay activationOverlay = new ActivationOverlay(activationRoomOverlay,
                                                                     grid.getDisplay(),
                                                                     gameState,
+                                                                    lossScreen,
+                                                                    winScreen,
                                                                     Arrays.asList(scores, hand));
         gameArea.addActor(activationOverlay);      
 
@@ -85,7 +127,6 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    new HandDisplay(gameState, hand, bigCardOverlay);
 	    	    
 	    gameArea.addActor(scores);
-	    scores.setDebug(true);
 	    scores.setX(620);
 	    scores.setHeight(600);
 	    scores.setWidth(800 - 620);
