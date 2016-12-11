@@ -82,10 +82,6 @@ public class RoomGrid {
                 adjacencies.get(nextRoom).add(currentRoom);
             }
         }
-        
-        for (int i = 0; i < rooms.size(); i++) {
-            System.out.println("Room #" + i + " is adjacent to " + adjacencies.get(i).stream().map(Object::toString).collect(Collectors.joining(",")));
-        }
     }
 
     public boolean isOccupied(int x, int y) {

@@ -13,6 +13,8 @@ public class Room extends Actor {
     private int tileX;
     private int tileY;
     
+    private RoomType type;
+    
     private int width;
     private int height;
     
@@ -28,9 +30,8 @@ public class Room extends Actor {
                 {true, true, true, true},
         };
         
-        return new Room(width, height, partOfRoom, Color.BLUE);
-    }
-    
+        return new Room(RoomType.EnergyTransmitter, width, height, partOfRoom, Color.BLUE);
+    }    
     public static Room createEnergyTransmitter2() {        
         int width = 2;
         int height = 4;
@@ -41,9 +42,8 @@ public class Room extends Actor {
                 {true, true}
         };
         
-        return new Room(width, height, partOfRoom, Color.CYAN);
-    }
-    
+        return new Room(RoomType.EnergyTransmitter, width, height, partOfRoom, Color.CYAN);
+    }    
     public static Room createMetalGenerator() {
         int width = 4;
         int height = 4;
@@ -54,9 +54,8 @@ public class Room extends Actor {
                 {false, true, true, false}
         };
         
-        return new Room(width, height, partOfRoom, Color.MAGENTA);        
-    }
-    
+        return new Room(RoomType.MetalGenerator, width, height, partOfRoom, Color.MAGENTA);        
+    }    
     public static Room createDefenseGun() {
         int width = 4;
         int height = 4;
@@ -67,9 +66,8 @@ public class Room extends Actor {
                 {true, true, false, false}
         };
         
-        return new Room(width, height, partOfRoom, Color.RED);        
-    }
-    
+        return new Room(RoomType.DefenseGun, width, height, partOfRoom, Color.RED);        
+    }    
     public static Room createEngine() {
         int width = 4;
         int height = 4;
@@ -80,7 +78,7 @@ public class Room extends Actor {
                 {true, true, true, false}
         };
         
-        return new Room(width, height, partOfRoom, Color.YELLOW);        
+        return new Room(RoomType.Engine, width, height, partOfRoom, Color.YELLOW);        
     }
     public static Room createWarpCore() {
         int width = 4;
@@ -91,10 +89,20 @@ public class Room extends Actor {
                 {false, true, true,  false},
         };
         
-        return new Room(width, height, partOfRoom, Color.GREEN);        
+        return new Room(RoomType.WarpCore, width, height, partOfRoom, Color.GREEN);        
     }
     
-    private Room(int width, int height, boolean[][] partOfRoom, Color color) {
+    public enum RoomType {
+        EnergyTransmitter,
+        MetalGenerator,
+        DefenseGun,
+        Engine,
+        WarpCore
+    }
+    
+    private Room(RoomType type, int width, int height, boolean[][] partOfRoom, Color color) {
+        this.type = type;
+        
         Pixmap map = new Pixmap(GameConstants.TILE_WIDTH_PX, GameConstants.TILE_HEIGHT_PX, Pixmap.Format.RGB565);
         map.setColor(color);
         map.fill();
@@ -144,5 +152,10 @@ public class Room extends Actor {
 
     public boolean isPartOfRoom(int x, int y) {
         return partOfRoom[y][x];
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("Room[tileX=%d, tileY=%d, type=%s]", tileX, tileY, type);
     }
 }
