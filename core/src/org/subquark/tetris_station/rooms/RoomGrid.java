@@ -1,6 +1,7 @@
 package org.subquark.tetris_station.rooms;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +21,8 @@ public class RoomGrid {
     
     private Map<Integer, Set<Integer>> adjacencies = new HashMap<>();
     
-    private static final int NO_ROOM = -1;
+    public static final int NO_ROOM = -1;
+    
     public RoomGrid(Group actorGroup) {
         this.actorGroup = actorGroup;
         this.display = new RoomGridDisplay();
@@ -86,5 +88,17 @@ public class RoomGrid {
 
     public boolean isOccupied(int x, int y) {
         return isOccupied[y][x] != NO_ROOM;
+    }
+
+    public int getRoomAt(int tileX, int tileY) {
+        return isOccupied[tileY][tileX];
+    }
+
+    public Room getRoom(int currentRoomIndex) {
+        return rooms.get(currentRoomIndex);
+    }
+
+    public Collection<? extends Integer> getRoomsAdjacentTo(int roomIndex) {
+        return adjacencies.get(roomIndex);
     }
 }

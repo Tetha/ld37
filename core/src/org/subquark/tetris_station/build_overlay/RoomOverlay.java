@@ -15,7 +15,6 @@ public class RoomOverlay extends Actor {
     
     private Texture goodSpot;
     private Texture badSpot;
-    private Texture markSpot;
     
     private boolean isValidPosition;
     private int tileX;
@@ -33,11 +32,6 @@ public class RoomOverlay extends Actor {
         badMap.setColor(1, 0, 0, 0.8f);
         badMap.fill();
         badSpot = new Texture(badMap);
-        
-        Pixmap markMap = new Pixmap(GameConstants.TILE_WIDTH_PX, GameConstants.TILE_HEIGHT_PX, Pixmap.Format.RGBA4444);
-        markMap.setColor(1, 0, 1, 0.8f);
-        markMap.fill();
-        markSpot = new Texture(markMap);
     }
     
     public void setRoom(Room room) {
@@ -83,8 +77,6 @@ public class RoomOverlay extends Actor {
                 }
             }
         }
-        
-        batch.draw(markSpot, tileX * GameConstants.TILE_HEIGHT_PX, tileY * GameConstants.TILE_HEIGHT_PX);
     }
 
     public void checkValidity() {

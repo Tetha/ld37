@@ -137,6 +137,10 @@ public class Room extends Actor {
         return this.tileY;
     }
 
+    public RoomType getType() {
+        return this.type;
+    }
+    
     @Override
     public void draw (Batch batch, float parentAlpha) {
         for (int y = 0; y < height; y++) {

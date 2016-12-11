@@ -1,5 +1,7 @@
 package org.subquark.tetris_station;
 
+import org.subquark.tetris_station.activation.ActivationOverlay;
+import org.subquark.tetris_station.activation.RoomActivationOverlay;
 import org.subquark.tetris_station.build_overlay.BuildOverlay;
 import org.subquark.tetris_station.build_overlay.RoomOverlay;
 import org.subquark.tetris_station.cards.BigCardOverlay;
@@ -48,6 +50,12 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         overlay.setRoom(Room.createDefenseGun());
         BuildOverlay buildOverlay = new BuildOverlay(grid.getDisplay(), overlay, grid); 
         gameArea.addActor(buildOverlay);
+        
+        RoomActivationOverlay activationRoomOverlay = new RoomActivationOverlay(grid);
+        rooms.addActor(activationRoomOverlay);
+        ActivationOverlay activationOverlay = new ActivationOverlay(activationRoomOverlay, grid.getDisplay());
+        gameArea.addActor(activationOverlay);
+        
         
         Table cardLayout = new Table();
         BigCardOverlay bigCardOverlay = new BigCardOverlay(gameArea, cardLayout, buildOverlay);
