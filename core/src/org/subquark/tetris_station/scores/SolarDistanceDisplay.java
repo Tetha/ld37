@@ -48,7 +48,7 @@ private GameState gameState;
     public void draw(Batch batch, float parentAlpha) {
         float x = getX();
         float y = getY();
-        for (int slot = 0; slot < GameConstants.MAX_SUN_DISTANCE; slot++) {
+        for (int slot = 0; slot <= GameConstants.MAX_SUN_DISTANCE; slot++) {
             if (slot < GameConstants.SUN_DISTANCE_THRESHOLD) {
                 batch.draw(emptySpot, x, y);
             } else {
@@ -57,7 +57,7 @@ private GameState gameState;
             x += SLOT_WIDTH;
         }
 
-        batch.draw(sun, getX() + SLOT_WIDTH * (GameConstants.MAX_SUN_DISTANCE), getY());
+        batch.draw(sun, getX() + SLOT_WIDTH * (GameConstants.MAX_SUN_DISTANCE+1), getY());
         batch.draw(shipPosition, getX() + SLOT_WIDTH * gameState.shipPosition, getY());
     }
 }
