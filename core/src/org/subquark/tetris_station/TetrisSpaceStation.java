@@ -131,6 +131,11 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    
 	    LabelStyle instructionStyle = new LabelStyle();
 	    instructionStyle.font = new BitmapFont();
+        Pixmap greyBox = new Pixmap(1, 1, Pixmap.Format.RGB565);
+        greyBox.setColor(0.5f, 0.5f, 0.5f, 1f);
+        greyBox.fill();
+        instructionStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(greyBox)));
+
 	    gameArea.addActor(scores);
 	    scores.setX(550);
 	    scores.setHeight(600);
@@ -181,6 +186,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    
         TextButtonStyle style = new TextButtonStyle();
         style.font = new BitmapFont();
+        style.up = new TextureRegionDrawable(new TextureRegion(new Texture(greyBox)));
         Button activateButton = new TextButton("Play more cards\nor click here\n to activate one room\nand end turn", style);
         activateButton.addListener(new ChangeListener() {
             @Override
