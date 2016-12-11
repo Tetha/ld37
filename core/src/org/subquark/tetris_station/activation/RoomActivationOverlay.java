@@ -5,14 +5,20 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.subquark.tetris_station.GameConstants;
 import org.subquark.tetris_station.rooms.Room;
 import org.subquark.tetris_station.rooms.RoomGrid;
 
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class RoomActivationOverlay extends Actor {
     private int tileX;
     private int tileY;
+    
+    private Texture active;
     
     private RoomGrid rooms;
     
@@ -20,6 +26,26 @@ public class RoomActivationOverlay extends Actor {
     
     public RoomActivationOverlay(RoomGrid roomGrid) {
         this.rooms = roomGrid;
+        
+        Pixmap activeSpot = new Pixmap(GameConstants.TILE_WIDTH_PX, GameConstants.TILE_HEIGHT_PX, Pixmap.Format.RGBA4444);
+        activeSpot.setColor(1, 1, 0, 0.7f);
+        activeSpot.fill();
+        active = new Texture(activeSpot);
+    }
+    
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        for (Room r : activeRooms) {
+            for (int y = 0; y < r.getTileHeight(); y++) {
+                for (int x = 0; x < r.getTileWidth(); x++) {
+                    if (r.isPartOfRoom(x, y)) {
+                        batch.draw(active,
+                                   getX() + (r.getTileX() + x) * GameConstants.TILE_WIDTH_PX,
+                                   getY() + (r.getTileY() + y) * GameConstants.TILE_HEIGHT_PX);
+                    }
+                }
+            }
+        }
     }
     
     public void setTileX(int tileX) {

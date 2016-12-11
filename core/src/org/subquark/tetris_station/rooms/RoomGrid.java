@@ -42,7 +42,7 @@ public class RoomGrid {
     
     public void addRoom(Room room) {
         rooms.add(room);
-        actorGroup.addActor(room);
+        actorGroup.addActorAfter(display, room);
         int roomIndex = rooms.size() - 1;
         
         for (int x = 0; x < room.getTileWidth(); x++) {

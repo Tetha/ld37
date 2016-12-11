@@ -54,7 +54,8 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         RoomActivationOverlay activationRoomOverlay = new RoomActivationOverlay(grid);
         rooms.addActor(activationRoomOverlay);
         ActivationOverlay activationOverlay = new ActivationOverlay(activationRoomOverlay, grid.getDisplay());
-        gameArea.addActor(activationOverlay);
+        gameArea.addActor(activationOverlay);      
+
         
         
         Table cardLayout = new Table();

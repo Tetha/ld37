@@ -78,7 +78,7 @@ public class Room extends Actor {
                 {true, true, true, false}
         };
         
-        return new Room(RoomType.Engine, width, height, partOfRoom, Color.YELLOW);        
+        return new Room(RoomType.Engine, width, height, partOfRoom, Color.ORANGE);        
     }
     public static Room createWarpCore() {
         int width = 4;
