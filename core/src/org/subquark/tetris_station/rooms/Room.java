@@ -1,6 +1,9 @@
 package org.subquark.tetris_station.rooms;
 
 import org.subquark.tetris_station.GameConstants;
+import org.subquark.tetris_station.rooms.actions.GiveMineralsActivation;
+import org.subquark.tetris_station.rooms.actions.NoActivation;
+import org.subquark.tetris_station.rooms.actions.RoomActivation;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -21,6 +24,8 @@ public class Room extends Actor {
     private boolean[][] partOfRoom;
     
     private Texture roomSource;
+    private RoomActivation activation;
+    
     
     public static Room createEnergyTransmitter1() {        
         int width = 4;
@@ -54,7 +59,7 @@ public class Room extends Actor {
                 {false, true, true, false}
         };
         
-        return new Room(RoomType.MetalGenerator, width, height, partOfRoom, Color.MAGENTA);        
+        return new Room(RoomType.MetalGenerator, width, height, partOfRoom, Color.MAGENTA, new GiveMineralsActivation(GameConstants.METAL_PER_GENERATOR));        
     }    
     public static Room createDefenseGun() {
         int width = 4;
@@ -101,7 +106,12 @@ public class Room extends Actor {
     }
     
     private Room(RoomType type, int width, int height, boolean[][] partOfRoom, Color color) {
+        this(type, width, height, partOfRoom, color, new NoActivation());
+    }
+    
+    private Room(RoomType type, int width, int height, boolean[][] partOfRoom, Color color, RoomActivation activation) {
         this.type = type;
+        this.activation = activation;
         
         Pixmap map = new Pixmap(GameConstants.TILE_WIDTH_PX, GameConstants.TILE_HEIGHT_PX, Pixmap.Format.RGB565);
         map.setColor(color);
@@ -111,6 +121,10 @@ public class Room extends Actor {
         this.width = width;
         this.height = height;
         this.partOfRoom = partOfRoom;
+    }
+
+    public RoomActivation getActivation() {
+        return this.activation;
     }
     
     public int getTileHeight() {

@@ -18,4 +18,7 @@ public class GameConstants {
     public static final int MAX_HYPER_POINTS = 10;
     
     public static final int MAX_MAX_CARDS = 5;
+    
+    
+    public static final int METAL_PER_GENERATOR = 1;
 }

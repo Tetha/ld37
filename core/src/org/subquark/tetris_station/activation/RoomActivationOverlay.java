@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.subquark.tetris_station.GameConstants;
+import org.subquark.tetris_station.GameState;
 import org.subquark.tetris_station.rooms.Room;
 import org.subquark.tetris_station.rooms.RoomGrid;
 
@@ -21,11 +22,13 @@ public class RoomActivationOverlay extends Actor {
     private Texture active;
     
     private RoomGrid rooms;
+    private GameState gameState;
     
     private List<Room> activeRooms = new ArrayList<>();
     
-    public RoomActivationOverlay(RoomGrid roomGrid) {
+    public RoomActivationOverlay(RoomGrid roomGrid, GameState gameState) {
         this.rooms = roomGrid;
+        this.gameState = gameState;
         
         Pixmap activeSpot = new Pixmap(GameConstants.TILE_WIDTH_PX, GameConstants.TILE_HEIGHT_PX, Pixmap.Format.RGBA4444);
         activeSpot.setColor(1, 1, 0, 0.7f);
@@ -76,6 +79,12 @@ public class RoomActivationOverlay extends Actor {
             if (currentRoom.getType().equals(Room.RoomType.EnergyTransmitter)) {
                 roomsToProcess.addAll(rooms.getRoomsAdjacentTo(currentRoomIndex));
             }
+        }
+    }
+
+    public void activateRooms() {
+        for (Room r : activeRooms) {
+            r.getActivation().activate(gameState);
         }
     }
 }

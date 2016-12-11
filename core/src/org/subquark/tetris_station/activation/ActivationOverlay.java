@@ -16,6 +16,18 @@ public class ActivationOverlay extends Actor {
         
         this.addListener(new InputListener() {
             @Override
+            public boolean touchDown(InputEvent e, float x, float y, int pointer, int button) {
+                if (gridDisplay.areStageCoordsOnGrid(x, y)) {
+                    roomOverlay.setTileX(gridDisplay.xPixelToGridTile(x));
+                    roomOverlay.setTileY(gridDisplay.yPixelToGridTile(y));
+                    roomOverlay.updateActivations();
+                    
+                    roomOverlay.activateRooms();
+                    return true;
+                }
+                return false;
+            }
+            @Override
             public boolean mouseMoved(InputEvent e, float x, float y) {
                 if (gridDisplay.areStageCoordsOnGrid(x, y)) {
                     roomOverlay.setTileX(gridDisplay.xPixelToGridTile(x));
