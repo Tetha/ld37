@@ -19,7 +19,11 @@ public class BuildOverlay extends Actor {
                        gridDisplay.getParent().getY(), 
                        GameConstants.GRID_WIDTH_TILE * GameConstants.TILE_WIDTH_PX,
                        GameConstants.GRID_HEIGHT_TILE * GameConstants.TILE_HEIGHT_PX);
-        this.setDebug(true);
+        roomOverlay.setTouchable(Touchable.disabled);
+        this.setTouchable(Touchable.disabled);
+        roomOverlay.setVisible(false);
+        this.setVisible(false);
+        
         this.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent e, float x, float y, int pointer, int button) {
