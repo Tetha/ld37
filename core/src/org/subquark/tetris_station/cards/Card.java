@@ -26,6 +26,7 @@ public class Card {
     public String cannotPlayReason;
     protected DiscardAction discardAction;
     public int cost = -1;
+    public String flavorText;
     
     public Card() {}
 
@@ -66,6 +67,9 @@ public class Card {
 
         result.cost = GameConstants.ENERGY_TRANSMITTER_COST;
         result.playCondition = new MaterialCost(GameConstants.ENERGY_TRANSMITTER_COST);
+        
+        result.flavorText = "'We call this the room of funny hairstyles'\n"
+                          + "-- an Engineer";
         return result;
     }
     
@@ -105,6 +109,9 @@ public class Card {
         result.cost = GameConstants.METAL_GENERATOR_COST;
         result.playCondition = new MaterialCost(GameConstants.METAL_GENERATOR_COST);
 
+        result.flavorText = "'Generator' the engineer sneers at you.\n"
+                            + "'It's a giant magnet, nothing else.'\n"
+                            + "'Be mindful with those keys though'";
         return result;
     }
     

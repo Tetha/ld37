@@ -29,6 +29,7 @@ public class BigCardDisplay extends Actor {
     
     private Label cannotPlayText;
     
+    private Label flavorText;
     public BigCardDisplay() {
         Pixmap map = new Pixmap(CARD_WIDTH, CARD_HEIGHT, Pixmap.Format.RGB565);
         map.setColor(Color.GRAY);
@@ -56,6 +57,7 @@ public class BigCardDisplay extends Actor {
         this.onPlayText = new Label("", style);
         this.onDiscardText = new Label("", style);
         this.cannotPlayText = new Label("", style);
+        this.flavorText = new Label("", style);
         
         this.layout.add(cardHeading);
         this.layout.add(cost).width(100);
@@ -68,6 +70,8 @@ public class BigCardDisplay extends Actor {
 
         this.layout.add(new Label("On Discard: ", style)).width(CARD_WIDTH - 40).padLeft(0).padTop(30).colspan(2).row();
         this.layout.add(onDiscardText).width(CARD_WIDTH - 40).padLeft(0).colspan(2).row();
+        
+        this.layout.add(flavorText).width(CARD_WIDTH - 40).padLeft(0).colspan(2).padTop(50).row();
     }
     
     public Card getCard() {
@@ -106,6 +110,13 @@ public class BigCardDisplay extends Actor {
             cannotPlayText.setVisible(true);
         }
 
+        if (card.flavorText == null) {
+            flavorText.setText("");
+            flavorText.setVisible(false);
+        } else {
+            flavorText.setText(card.flavorText);
+            flavorText.setVisible(true);
+        }
         this.layout.invalidate();
     }
     
