@@ -8,6 +8,9 @@ import org.subquark.tetris_station.cards.actions.BuildEngineAction;
 import org.subquark.tetris_station.cards.actions.BuildMetalGenerator;
 import org.subquark.tetris_station.cards.actions.BuildWarpCore;
 import org.subquark.tetris_station.cards.actions.CardAction;
+import org.subquark.tetris_station.cards.actions.CombatThrustAction;
+import org.subquark.tetris_station.cards.condition.AlwaysPlayable;
+import org.subquark.tetris_station.cards.condition.DistanceFromSun;
 import org.subquark.tetris_station.cards.condition.Impossible;
 import org.subquark.tetris_station.cards.condition.MaterialCost;
 import org.subquark.tetris_station.cards.condition.PlayCondition;
@@ -41,6 +44,7 @@ public class Card {
         this.cannotPlayReason = c.cannotPlayReason;
         this.discardAction = c.discardAction;
         this.cost = c.cost;
+        this.flavorText = c.flavorText;
     }
     
     public Card shallowClone() {
@@ -177,6 +181,21 @@ public class Card {
         result.discardAction = new SpawnFighters(5);
         
         result.flavorText = "'ALL MAN ON BRIDGE, WE ARE UNDER DIRECT ASSAULT'";
+        return result;
+    }
+    
+    public static Card createCombatThrust() {
+        Card result = new Card();
+        result.headline = "Combat Thrust";
+        
+        result.playCondition = new DistanceFromSun(1);
+        result.playDescription = " -1 distance to the sun\n"
+                               + " -2 hostile fighters";
+        result.playAction = new CombatThrustAction();
+        
+        result.flavorText = "'If I can ignore the sun, I can hit\n"
+                          + "some of these jerks with that engine'\n"
+                          + "-- Old Engineer";
         return result;
     }
 }

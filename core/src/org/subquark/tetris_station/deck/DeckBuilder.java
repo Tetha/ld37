@@ -19,13 +19,20 @@ public class DeckBuilder {
             Card.createLargeHostileFleet()
     );
     
-    private static final int NUM_MEAN_CARDS = 5;
+    private static final int NUM_MEAN_CARDS = 10;
+    
+    private static List<Card> funnyCards = Arrays.asList(
+            Card.createCombatThrust()
+    );
+    private static final int NUM_FUNNY_CARDS = 4;
     
     public static Deck createDefaultDeck() {
         Deck result = new Deck();
         Random random = new Random();
         addNecessaryCards(result, random);
+        addNecessaryCards(result, random);
         addMeanCards(result, random);
+        addFunnyCards(result, random);
         return result;
     }
     
@@ -45,6 +52,13 @@ public class DeckBuilder {
         for (int i = 0; i < NUM_MEAN_CARDS; i++) {
             int randomIndex = r.nextInt(meanCards.size());
             d.addCard(meanCards.get(randomIndex).shallowClone());
+        }
+    }
+    
+    private static void addFunnyCards(Deck d, Random r) {
+        for (int i = 0; i < NUM_FUNNY_CARDS; i++) {
+            int randomIndex = r.nextInt(funnyCards.size());
+            d.addCard(funnyCards.get(randomIndex).shallowClone());
         }
     }
 }
