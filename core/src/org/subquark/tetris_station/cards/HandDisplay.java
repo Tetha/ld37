@@ -23,10 +23,9 @@ public class HandDisplay {
             display.setDebug(true);
             display.addListener(new InputListener() {
                 @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    System.out.println("Card #" + cardIndex + " clicked!");
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {;
                     if (0 <= cardIndex && cardIndex < gameState.cards.size()) {
-                        bigDisplay.setCard(gameState.cards.get(cardIndex));
+                        bigDisplay.setCard(cardIndex, gameState.cards.get(cardIndex));
                     }
                     return true;
                 }

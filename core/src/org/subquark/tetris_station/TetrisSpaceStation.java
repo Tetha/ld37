@@ -74,7 +74,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         
         
         Table cardLayout = new Table();
-        BigCardOverlay bigCardOverlay = new BigCardOverlay(gameArea, cardLayout, buildOverlay);
+        BigCardOverlay bigCardOverlay = new BigCardOverlay(gameArea, cardLayout, buildOverlay, gameState);
         stage.addActor(cardLayout);
         
 	    gameArea.addActor(hand);

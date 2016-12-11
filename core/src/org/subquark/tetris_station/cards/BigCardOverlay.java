@@ -1,5 +1,6 @@
 package org.subquark.tetris_station.cards;
 
+import org.subquark.tetris_station.GameState;
 import org.subquark.tetris_station.build_overlay.BuildOverlay;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -16,8 +17,9 @@ public class BigCardOverlay {
     private BigCardDisplay display;
     private Table layout;
     private Group gameGroup;
+    private int cardIndex;
     
-    public BigCardOverlay(Group gameGroup, Table layout, final BuildOverlay buildOverlay) {
+    public BigCardOverlay(Group gameGroup, Table layout, final BuildOverlay buildOverlay, final GameState gameState) {
         this.layout = layout;
         layout.setFillParent(true);
         display = new BigCardDisplay();
@@ -39,11 +41,11 @@ public class BigCardOverlay {
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                System.out.println("Button Changed");
                 if (display.getCard().playAction != null) {
                     display.getCard().playAction.run(buildOverlay);
+                    
                 }
-                // TODO: remove card from hand
+                gameState.cards.remove(cardIndex);
                 removeCard();
             }
         });
@@ -63,7 +65,8 @@ public class BigCardOverlay {
         this.layout.setVisible(false);
     }
     
-    public void setCard(Card c) {
+    public void setCard(int index, Card c) {
+        this.cardIndex = index;
         display.setCard(c);
         this.layout.setTouchable(Touchable.enabled);
         gameGroup.setTouchable(Touchable.disabled);
