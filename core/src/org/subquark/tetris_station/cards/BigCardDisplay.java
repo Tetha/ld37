@@ -23,10 +23,12 @@ public class BigCardDisplay extends Actor {
     private Table layout;
     
     private Label cardHeading;
+    private Label onPlayText;
+    private Label onDiscardText;
     
     public BigCardDisplay() {
         Pixmap map = new Pixmap(CARD_WIDTH, CARD_HEIGHT, Pixmap.Format.RGB565);
-        map.setColor(Color.LIGHT_GRAY);
+        map.setColor(Color.GRAY);
         map.fill();
         cardBackground = new Texture(map);
         font = new BitmapFont();
@@ -40,8 +42,16 @@ public class BigCardDisplay extends Actor {
         style.font = font;
         
         this.cardHeading = new Label("", style);
+        this.onPlayText = new Label("", style);
+        this.onDiscardText = new Label("", style);
         
         this.layout.add(cardHeading).row();
+        
+        this.layout.add(new Label("On play: ", style)).padTop(30).row();
+        this.layout.add(onPlayText).row();
+
+        this.layout.add(new Label("On Discard: ", style)).padTop(30).row();
+        this.layout.add(onDiscardText).row();
     }
     
     public Card getCard() {
@@ -51,6 +61,20 @@ public class BigCardDisplay extends Actor {
     public void setCard(Card card) {
         this.card = card;
         this.cardHeading.setText(card.headline);
+        
+        if (card.playDescription == null) {
+            onPlayText.setText("None");
+        } else {
+            onPlayText.setText(card.playDescription);
+        }
+        
+        if (card.discardDescription == null) {
+            onDiscardText.setText("None");
+        } else {
+            onDiscardText.setText(card.discardDescription);
+        }
+
+        this.layout.invalidate();
     }
     
     public void removeCard() {

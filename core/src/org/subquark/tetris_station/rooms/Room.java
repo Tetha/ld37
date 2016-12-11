@@ -1,9 +1,12 @@
 package org.subquark.tetris_station.rooms;
 
 import org.subquark.tetris_station.GameConstants;
+import org.subquark.tetris_station.rooms.actions.DefenseGunActivation;
+import org.subquark.tetris_station.rooms.actions.EngineActivation;
 import org.subquark.tetris_station.rooms.actions.GiveMineralsActivation;
 import org.subquark.tetris_station.rooms.actions.NoActivation;
 import org.subquark.tetris_station.rooms.actions.RoomActivation;
+import org.subquark.tetris_station.rooms.actions.WarpCoreActivation;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -59,7 +62,10 @@ public class Room extends Actor {
                 {false, true, true, false}
         };
         
-        return new Room(RoomType.MetalGenerator, width, height, partOfRoom, Color.MAGENTA, new GiveMineralsActivation(GameConstants.METAL_PER_GENERATOR));        
+        return new Room(RoomType.MetalGenerator,
+                        width, height, partOfRoom,
+                        Color.MAGENTA,
+                        new GiveMineralsActivation(GameConstants.METAL_PER_GENERATOR));        
     }    
     public static Room createDefenseGun() {
         int width = 4;
@@ -71,7 +77,10 @@ public class Room extends Actor {
                 {true, true, false, false}
         };
         
-        return new Room(RoomType.DefenseGun, width, height, partOfRoom, Color.RED);        
+        return new Room(RoomType.DefenseGun,
+                        width, height, partOfRoom,
+                        Color.RED,
+                        new DefenseGunActivation());        
     }    
     public static Room createEngine() {
         int width = 4;
@@ -83,7 +92,10 @@ public class Room extends Actor {
                 {true, true, true, false}
         };
         
-        return new Room(RoomType.Engine, width, height, partOfRoom, Color.ORANGE);        
+        return new Room(RoomType.Engine,
+                        width, height, partOfRoom,
+                        Color.ORANGE,
+                        new EngineActivation());        
     }
     public static Room createWarpCore() {
         int width = 4;
@@ -94,7 +106,10 @@ public class Room extends Actor {
                 {false, true, true,  false},
         };
         
-        return new Room(RoomType.WarpCore, width, height, partOfRoom, Color.GREEN);        
+        return new Room(RoomType.WarpCore,
+                        width, height, partOfRoom,
+                        Color.GREEN,
+                        new WarpCoreActivation());        
     }
     
     public enum RoomType {

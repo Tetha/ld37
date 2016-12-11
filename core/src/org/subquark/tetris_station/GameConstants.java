@@ -21,4 +21,5 @@ public class GameConstants {
     
     
     public static final int METAL_PER_GENERATOR = 1;
+    public static final int FIGHTERS_PER_GUN = 1;
 }
