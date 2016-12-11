@@ -18,9 +18,14 @@ public class BigCardOverlay {
     private Table layout;
     private Group gameGroup;
     private int cardIndex;
+    private GameState gameState;
+    
+    private Button playButton;
     
     public BigCardOverlay(Group gameGroup, Table layout, final BuildOverlay buildOverlay, final GameState gameState) {
         this.layout = layout;
+        this.gameState = gameState;
+        
         layout.setFillParent(true);
         display = new BigCardDisplay();
         this.gameGroup = gameGroup;
@@ -37,7 +42,7 @@ public class BigCardOverlay {
             }
         });
         
-        Button playButton = new TextButton("Play", style);
+        playButton = new TextButton("Play", style);
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -67,7 +72,12 @@ public class BigCardOverlay {
     
     public void setCard(int index, Card c) {
         this.cardIndex = index;
+        c.playCondition.setPlayable(gameState, c);
+        this.playButton.setVisible(c.canPlay);
+
         display.setCard(c);
+        
+        
         this.layout.setTouchable(Touchable.enabled);
         gameGroup.setTouchable(Touchable.disabled);
         this.layout.setVisible(true);
