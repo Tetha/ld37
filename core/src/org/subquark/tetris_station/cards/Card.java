@@ -16,9 +16,22 @@ public class Card {
     public String playDescription;
     public String discardDescription;
     
+    public Card() {}
+
+    private Card(Card c) {
+        this.headline = c.headline;
+        this.description = c.description;
+        this.playAction = c.playAction;
+        this.playDescription = c.playDescription;
+        this.discardDescription = c.discardDescription;
+    }
+    
+    public Card shallowClone() {
+        return new Card(this); 
+    }
     public static Card createBuildDefenseGun() {
         Card result = new Card();
-        result.headline = "Build Defense Gun";
+        result.headline = "Defense Gun";
         result.playAction = new BuildDefenseGun();
         
         result.playDescription = "Build a Defense Gun\nIf you activate a Defense gun,\nIt destroys 1 enemy fighter";
@@ -28,7 +41,7 @@ public class Card {
 
     public static Card createBuildEnergyTransmitter1() {
         Card result = new Card();
-        result.headline = "Build Horizontal Energy Transmitter";
+        result.headline = "Horizontal\nTransmitter";
         result.playAction = new BuildEnergyTransmitter1();
         
         result.playDescription = "Build an Energy Transmitter\nIf you activate an energy transmitter,\nIt activates adjacent rooms";
@@ -38,7 +51,7 @@ public class Card {
     
     public static Card createBuildEnergyTransmitter2() {
         Card result = new Card();
-        result.headline = "Build Vertical Energy Transmitter";
+        result.headline = "Vertical\nTransmitter";
         result.playAction = new BuildEnergyTransmitter2();
         
         result.playDescription = "Build an Energy Transmitter\nIf you activate an energy transmitter,\nIt activates adjacent rooms";
@@ -48,7 +61,7 @@ public class Card {
     
     public static Card createBuildEngineCard() {
         Card result = new Card();
-        result.headline = "Build Engine";
+        result.headline = "Engine";
         result.playAction = new BuildEngineAction();
         
         result.playDescription = "Build an Engine\nIf you activate an engine,\nIt moves you 1 spot away from the sun";
@@ -58,7 +71,7 @@ public class Card {
     
     public static Card createBuildMetalGenerator() {
         Card result = new Card();
-        result.headline = "Build Metal Generator";
+        result.headline = "Metal\nGenerator";
         result.playAction = new BuildMetalGenerator();
         
         result.playDescription = "Build a Metal Generator\nIf you activate a Metal Generator\nIt generates 1 unit of Metal";
@@ -68,7 +81,7 @@ public class Card {
     
     public static Card createWarpCore() {
         Card result = new Card();
-        result.headline = "Build Warp Core";
+        result.headline = "Warp Core";
         result.playAction = new BuildWarpCore();
         
         result.playDescription = "Build a warp core\nIf you activate a Warp Core, \nYou gain a Warp-Point.\nGain " +  GameConstants.MAX_HYPER_POINTS + " points to win!";

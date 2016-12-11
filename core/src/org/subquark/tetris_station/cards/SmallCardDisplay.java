@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
 public class SmallCardDisplay extends Actor {
     private Texture cardBackground;
@@ -18,6 +20,7 @@ public class SmallCardDisplay extends Actor {
     public static final int CARD_HEIGHT = 50;
     
     private BitmapFont font;
+    private Label text;
     
     public SmallCardDisplay(GameState gameState, int cardIndex) {
         this.gameState = gameState;
@@ -28,13 +31,21 @@ public class SmallCardDisplay extends Actor {
         map.fill();
         cardBackground = new Texture(map);
         font = new BitmapFont();
+        
+        LabelStyle style = new LabelStyle();
+        style.font = new BitmapFont();
+        text = new Label("", style);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.draw(cardBackground, getX(), getY());
         if (0 <= cardIndex && cardIndex < gameState.cards.size()) {
-            font.draw(batch, gameState.cards.get(cardIndex).headline, getX() + 10, getY() + CARD_HEIGHT/2);
+            text.setText(gameState.cards.get(cardIndex).headline);
+            text.setX(getX()+10);
+            text.setY(getY()+CARD_HEIGHT/2);
+            text.draw(batch, parentAlpha);
+            //font.draw(batch, gameState.cards.get(cardIndex).headline, getX() + 10, getY() + CARD_HEIGHT/2);
         }
     }
 }

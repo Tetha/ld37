@@ -9,6 +9,7 @@ import org.subquark.tetris_station.build_overlay.RoomOverlay;
 import org.subquark.tetris_station.cards.BigCardOverlay;
 import org.subquark.tetris_station.cards.Card;
 import org.subquark.tetris_station.cards.HandDisplay;
+import org.subquark.tetris_station.deck.DeckBuilder;
 import org.subquark.tetris_station.rooms.Room;
 import org.subquark.tetris_station.rooms.RoomGrid;
 import org.subquark.tetris_station.scores.HostileShipDisplay;
@@ -44,7 +45,8 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         gameState.shipPosition = 3;
         gameState.hyperPointsEarned = 7;
         gameState.maxCards = 5;
-        gameState.cards.add(Card.createBuildEngineCard());
+        gameState.deck = DeckBuilder.createDefaultDeck();
+        gameState.refreshHand();
         
         Group gameArea = new Group();
         stage.addActor(gameArea);

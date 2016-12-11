@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.subquark.tetris_station.cards.Card;
+import org.subquark.tetris_station.deck.Deck;
 
 public class GameState {
     public int hostileShips;
@@ -12,5 +13,13 @@ public class GameState {
     public int hyperPointsEarned;
     
     public int maxCards;
+    
+    public Deck deck;
     public List<Card> cards = new ArrayList<Card>();
+    
+    public void refreshHand() {
+        while (cards.size() < maxCards) {
+            cards.add(deck.draw());
+        }
+    }
 }
