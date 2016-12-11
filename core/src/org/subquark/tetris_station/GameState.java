@@ -11,6 +11,7 @@ public class GameState {
     public int availableMetal;
     public int shipPosition;
     public int hyperPointsEarned;
+    public int health;
     
     public int maxCards;
     

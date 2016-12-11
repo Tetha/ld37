@@ -19,6 +19,8 @@ public class GameConstants {
     
     public static final int MAX_MAX_CARDS = 5;
     
+    public static final int MAX_HEALTH = 7;
+    
     
     public static final int METAL_PER_GENERATOR = 1;
     public static final int FIGHTERS_PER_GUN = 1;

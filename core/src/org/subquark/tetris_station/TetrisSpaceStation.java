@@ -12,6 +12,7 @@ import org.subquark.tetris_station.cards.HandDisplay;
 import org.subquark.tetris_station.deck.DeckBuilder;
 import org.subquark.tetris_station.rooms.Room;
 import org.subquark.tetris_station.rooms.RoomGrid;
+import org.subquark.tetris_station.scores.HealthDisplay;
 import org.subquark.tetris_station.scores.HostileShipDisplay;
 import org.subquark.tetris_station.scores.HyperPointDisplay;
 import org.subquark.tetris_station.scores.MetalDisplay;
@@ -45,6 +46,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         gameState.shipPosition = 3;
         gameState.hyperPointsEarned = 7;
         gameState.maxCards = 5;
+        gameState.health = 6;
         gameState.deck = DeckBuilder.createDefaultDeck();
         gameState.refreshHand();
         
@@ -88,6 +90,13 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    scores.setHeight(600);
 	    scores.setWidth(800 - 620);
 
+	    HealthDisplay healthDisplay = new HealthDisplay(gameState);
+	    scores.add(healthDisplay)
+	          .width(healthDisplay.getWidth())
+	          .height(healthDisplay.getHeight())
+	          .pad(10)
+	          .row();
+	    
 	    HostileShipDisplay hostileShipDisplay = new HostileShipDisplay(gameState);
 	    scores.add(hostileShipDisplay)
 	          .width(hostileShipDisplay.getWidth())
