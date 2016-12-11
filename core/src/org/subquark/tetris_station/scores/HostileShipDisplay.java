@@ -39,6 +39,16 @@ public class HostileShipDisplay extends Actor {
     }
     
     @Override
+    public float getWidth() {
+        return (GameConstants.MAX_FIGHTERS / 2) * SLOT_WIDTH;
+    }
+    
+    @Override
+    public float getHeight() {
+        return 2 * SLOT_HEIGHT;
+    }
+    
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         float x = getX();
         float y = getY();
@@ -50,7 +60,7 @@ public class HostileShipDisplay extends Actor {
             }
             
             if (slot % 2 == 0) {
-                y = SLOT_HEIGHT;
+                y = getY() + SLOT_HEIGHT;
             } else {
                 y = getY();
                 x += SLOT_WIDTH;
@@ -62,7 +72,7 @@ public class HostileShipDisplay extends Actor {
         for (int slot = 0; slot < gameState.hostileShips; slot++) {
             batch.draw(ship, x, y);
             if (slot % 2 == 0) {
-                y = SLOT_HEIGHT;
+                y = getY() + SLOT_HEIGHT;
             } else {
                 y = getY();
                 x += SLOT_WIDTH;

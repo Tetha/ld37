@@ -34,6 +34,16 @@ public class MetalDisplay extends Actor {
     }
     
     @Override
+    public float getWidth() {
+        return (GameConstants.MAX_METAL / COLUMNS) * SLOT_WIDTH;
+    }
+    
+    @Override
+    public float getHeight() {
+        return COLUMNS * SLOT_HEIGHT;
+    }
+    
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         float x = getX();
         float y = getY();

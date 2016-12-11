@@ -17,9 +17,13 @@ import org.subquark.tetris_station.scores.SolarDistanceDisplay;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class TetrisSpaceStation extends ApplicationAdapter {
@@ -45,6 +49,10 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         RoomGrid grid = new RoomGrid(rooms);
         gameArea.addActor(rooms);
         
+        TextButtonStyle style = new TextButtonStyle();
+        style.font = new BitmapFont();
+        
+
         RoomOverlay overlay = new RoomOverlay(grid);
         rooms.addActor(overlay);
         overlay.setRoom(Room.createDefenseGun());
@@ -66,24 +74,40 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    gameArea.addActor(hand);
 	    new HandDisplay(gameState, hand, bigCardOverlay);
 	    	    
-	    Group scores = new Group();
+	    Table scores = new Table();
 	    gameArea.addActor(scores);
+	    scores.setDebug(true);
 	    scores.setX(620);
+	    scores.setHeight(600);
+	    scores.setWidth(800 - 620);
 
 	    HostileShipDisplay hostileShipDisplay = new HostileShipDisplay(gameState);
-	    scores.addActor(hostileShipDisplay);
+	    scores.add(hostileShipDisplay)
+	          .width(hostileShipDisplay.getWidth())
+	          .height(hostileShipDisplay.getHeight())
+	          .pad(10)
+	          .row();
 	    
 	    MetalDisplay metalDisplay = new MetalDisplay(gameState);
-	    scores.addActor(metalDisplay);
-	    metalDisplay.setY(50);
+	    scores.add(metalDisplay)
+	          .width(metalDisplay.getWidth())
+	          .height(metalDisplay.getHeight())
+	          .pad(10)
+	          .row();
 	    
 	    SolarDistanceDisplay distanceDisplay = new SolarDistanceDisplay(gameState);
-	    scores.addActor(distanceDisplay);
-	    distanceDisplay.setY(225);
+	    scores.add(distanceDisplay)
+	          .width(distanceDisplay.getWidth())
+	          .height(distanceDisplay.getHeight())
+	          .pad(10)
+	          .row();
 	    
 	    HyperPointDisplay hyperDisplay = new HyperPointDisplay(gameState);
-	    scores.addActor(hyperDisplay);
-	    hyperDisplay.setY(275);
+	    scores.add(hyperDisplay)
+	          .width(hyperDisplay.getWidth())
+	          .height(hyperDisplay.getHeight())
+	          .pad(10)
+	          .row();
 
 	    
 	    Room transmitter1_1 =Room.createEnergyTransmitter1();

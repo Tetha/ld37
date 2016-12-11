@@ -45,6 +45,16 @@ private GameState gameState;
     }
     
     @Override
+    public float getWidth() {
+        return (GameConstants.MAX_SUN_DISTANCE + 2) * SLOT_WIDTH;
+    }
+    
+    @Override
+    public float getHeight() {
+        return SLOT_HEIGHT;
+    }
+    
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         float x = getX();
         float y = getY();

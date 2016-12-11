@@ -35,6 +35,16 @@ public class HyperPointDisplay extends Actor {
     }
     
     @Override
+    public float getWidth() {
+        return (GameConstants.MAX_HYPER_POINTS/COLUMNS) * SLOT_WIDTH;
+    }
+    
+    @Override
+    public float getHeight() {
+        return COLUMNS * SLOT_HEIGHT;
+    }
+    
+    @Override
     public void draw(Batch batch, float parentAlpha) {
         float x = getX();
         float y = getY();
