@@ -37,13 +37,20 @@ public class BigCardDisplay extends Actor {
         font = new BitmapFont();
         
         layout = new Table();
+        layout.setDebug(true);
+        layout.setX(getX());
+        layout.setY(getY());
         layout.setHeight(CARD_HEIGHT);
         layout.setWidth(CARD_WIDTH);
         layout.setBackground(new TextureRegionDrawable(new TextureRegion(cardBackground)));
 
         LabelStyle style = new LabelStyle();
         style.font = font;
-        
+        Pixmap textMap = new Pixmap(1, 1, Pixmap.Format.RGB565);
+        textMap.setColor(Color.DARK_GRAY);
+        textMap.fill();
+        style.background = new TextureRegionDrawable(new TextureRegion(new Texture(textMap)));
+
         this.cardHeading = new Label("", style);
         this.cost = new Label("", style);
         this.onPlayText = new Label("", style);
@@ -51,16 +58,16 @@ public class BigCardDisplay extends Actor {
         this.cannotPlayText = new Label("", style);
         
         this.layout.add(cardHeading);
-        this.layout.add(cost);
+        this.layout.add(cost).width(100);
         this.layout.row();
         
-        this.layout.add(cannotPlayText).padTop(30).row();
+        this.layout.add(cannotPlayText).padTop(30).colspan(2).row();
         
-        this.layout.add(new Label("On play: ", style)).padTop(30).row();
-        this.layout.add(onPlayText).row();
+        this.layout.add(new Label("On play: ", style)).width(CARD_WIDTH - 40).padLeft(0).padTop(30).colspan(2).row();
+        this.layout.add(onPlayText).width(CARD_WIDTH - 40).padLeft(0).colspan(2).row();
 
-        this.layout.add(new Label("On Discard: ", style)).padTop(30).row();
-        this.layout.add(onDiscardText).row();
+        this.layout.add(new Label("On Discard: ", style)).width(CARD_WIDTH - 40).padLeft(0).padTop(30).colspan(2).row();
+        this.layout.add(onDiscardText).width(CARD_WIDTH - 40).padLeft(0).colspan(2).row();
     }
     
     public Card getCard() {
