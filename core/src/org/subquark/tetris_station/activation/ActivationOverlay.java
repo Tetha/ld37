@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.subquark.tetris_station.GameConstants;
 import org.subquark.tetris_station.GameState;
+import org.subquark.tetris_station.activation.actions.ApplyDamageFromFighters;
+import org.subquark.tetris_station.activation.actions.ApplyDamageFromSun;
 import org.subquark.tetris_station.activation.actions.MoveCloserToSun;
 import org.subquark.tetris_station.activation.actions.PostActivationAction;
 import org.subquark.tetris_station.activation.actions.RefillHand;
@@ -24,6 +26,8 @@ public class ActivationOverlay extends Actor {
     private List<Group> exclusiveGroups;
     
     public ActivationOverlay(final RoomActivationOverlay roomOverlay, final RoomGridDisplay gridDisplay, final GameState gameState, List<Group> exclusiveGroups) {
+        postActivationActions.add(new ApplyDamageFromFighters());
+        postActivationActions.add(new ApplyDamageFromSun());
         postActivationActions.add(new MoveCloserToSun());
         postActivationActions.add(new RefillHand());
         

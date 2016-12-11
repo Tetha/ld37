@@ -43,7 +43,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    GameState gameState = new GameState();   
         gameState.hostileShips = 5;
         gameState.availableMetal = 12;
-        gameState.shipPosition = 3;
+        gameState.shipPosition = 2;
         gameState.hyperPointsEarned = 7;
         gameState.maxCards = 5;
         gameState.health = 6;
