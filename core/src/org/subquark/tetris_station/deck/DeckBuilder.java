@@ -19,7 +19,7 @@ public class DeckBuilder {
             Card.createLargeHostileFleet()
     );
     
-    private static final int NUM_MEAN_CARDS = 10;
+    private static final int NUM_MEAN_CARDS = 5;
     
     public static Deck createDefaultDeck() {
         Deck result = new Deck();

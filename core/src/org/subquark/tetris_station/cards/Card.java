@@ -55,6 +55,9 @@ public class Card {
         
         result.cost = GameConstants.DEFENSE_GUN_COST;
         result.playCondition = new MaterialCost(GameConstants.DEFENSE_GUN_COST);
+        
+        result.flavorText = "'The collectors think they are moving the most\n"
+                          + "metal on this ship. They are dead wrong.' -- Gunnery Seargent";
         return result;
     }
 
@@ -82,7 +85,9 @@ public class Card {
 
         result.cost = GameConstants.ENERGY_TRANSMITTER_COST;
         result.playCondition = new MaterialCost(GameConstants.ENERGY_TRANSMITTER_COST);
-        
+
+        result.flavorText = "'We call this the room of funny hairstyles'\n"
+                + "-- an Engineer";
         return result;
     }
     
@@ -96,6 +101,9 @@ public class Card {
         result.cost = GameConstants.ENGINE_COST;
         result.playCondition = new MaterialCost(GameConstants.ENGINE_COST);
 
+        result.flavorText = "Controlled Explosions in the ship to keep\n"
+                          + "the station away from the giant natural\n"
+                          + "explosion";
         return result;
     }
     
@@ -125,6 +133,9 @@ public class Card {
         result.cost = GameConstants.WARP_CORE_COST;
         result.playCondition = new MaterialCost(GameConstants.WARP_CORE_COST);
         
+        result.flavorText = "'How this works?' the scientist wonders"
+                          + "'Well, if only we knew. Last guy who tried\n"
+                          + "to understand too hard went mad. Badly'";
         return result;
     }
     
@@ -136,6 +147,9 @@ public class Card {
         
         result.discardDescription = "Two hostile fighters warp in.";
         result.discardAction = new SpawnFighters(2);
+        
+        result.flavorText = "'They just blinked in. Probably on a test flight\n"
+                          + "But still, they're here now' -- Sensor Crew";
         return result;
     }
     
@@ -147,6 +161,9 @@ public class Card {
         
         result.discardDescription = "Three hostile fighters warp in.";
         result.discardAction = new SpawnFighters(3);
+        
+        result.flavorText = "'Standard hostile patrol behavior. Just a matter\n"
+                          + "of tme till they found us' -- Tactical Officer";
         return result;
     }
     
@@ -158,6 +175,8 @@ public class Card {
         
         result.discardDescription = "Five hostile fighters warp in.";
         result.discardAction = new SpawnFighters(5);
+        
+        result.flavorText = "'ALL MAN ON BRIDGE, WE ARE UNDER DIRECT ASSAULT'";
         return result;
     }
 }
