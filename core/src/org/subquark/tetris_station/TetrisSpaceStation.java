@@ -1,5 +1,7 @@
 package org.subquark.tetris_station;
 
+import java.util.Arrays;
+
 import org.subquark.tetris_station.activation.ActivationOverlay;
 import org.subquark.tetris_station.activation.RoomActivationOverlay;
 import org.subquark.tetris_station.build_overlay.BuildOverlay;
@@ -18,12 +20,15 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class TetrisSpaceStation extends ApplicationAdapter {
@@ -49,19 +54,21 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         RoomGrid grid = new RoomGrid(rooms);
         gameArea.addActor(rooms);
         
-        TextButtonStyle style = new TextButtonStyle();
-        style.font = new BitmapFont();
-        
-
         RoomOverlay overlay = new RoomOverlay(grid);
         rooms.addActor(overlay);
         overlay.setRoom(Room.createDefenseGun());
         BuildOverlay buildOverlay = new BuildOverlay(grid.getDisplay(), overlay, grid); 
         gameArea.addActor(buildOverlay);
         
+        Table scores = new Table();
+        Group hand = new Group();
+
         RoomActivationOverlay activationRoomOverlay = new RoomActivationOverlay(grid, gameState);
         rooms.addActor(activationRoomOverlay);
-        ActivationOverlay activationOverlay = new ActivationOverlay(activationRoomOverlay, grid.getDisplay(), gameState);
+        ActivationOverlay activationOverlay = new ActivationOverlay(activationRoomOverlay,
+                                                                    grid.getDisplay(),
+                                                                    gameState,
+                                                                    Arrays.asList(scores, hand));
         gameArea.addActor(activationOverlay);      
 
         
@@ -70,11 +77,9 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         BigCardOverlay bigCardOverlay = new BigCardOverlay(gameArea, cardLayout, buildOverlay);
         stage.addActor(cardLayout);
         
-	    Group hand = new Group();
 	    gameArea.addActor(hand);
 	    new HandDisplay(gameState, hand, bigCardOverlay);
 	    	    
-	    Table scores = new Table();
 	    gameArea.addActor(scores);
 	    scores.setDebug(true);
 	    scores.setX(620);
@@ -108,8 +113,20 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	          .height(hyperDisplay.getHeight())
 	          .pad(10)
 	          .row();
-
 	    
+        TextButtonStyle style = new TextButtonStyle();
+        style.font = new BitmapFont();
+        Button activateButton = new TextButton("Activate one Room\nand End Turn", style);
+        activateButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Button Changed");
+                activationOverlay.enable();
+            }
+        });
+        scores.add(activateButton).pad(10).row();
+        
+        
 	    Room transmitter1_1 =Room.createEnergyTransmitter1();
 	    transmitter1_1.setTileX(4);
 	    transmitter1_1.setTileY(0);

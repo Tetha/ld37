@@ -7,22 +7,34 @@ import org.subquark.tetris_station.GameConstants;
 import org.subquark.tetris_station.GameState;
 import org.subquark.tetris_station.activation.actions.MoveCloserToSun;
 import org.subquark.tetris_station.activation.actions.PostActivationAction;
+import org.subquark.tetris_station.build_overlay.BuildOverlay;
+import org.subquark.tetris_station.rooms.Room;
 import org.subquark.tetris_station.rooms.RoomGridDisplay;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 public class ActivationOverlay extends Actor {
     final List<PostActivationAction> postActivationActions = new ArrayList<>();
+    private RoomActivationOverlay roomOverlay;
+    private List<Group> exclusiveGroups;
     
-    public ActivationOverlay(final RoomActivationOverlay roomOverlay, final RoomGridDisplay gridDisplay, final GameState gameState) {
+    public ActivationOverlay(final RoomActivationOverlay roomOverlay, final RoomGridDisplay gridDisplay, final GameState gameState, List<Group> exclusiveGroups) {
         postActivationActions.add(new MoveCloserToSun());
+        this.roomOverlay = roomOverlay;
+        this.exclusiveGroups = exclusiveGroups;
         
         this.setBounds(gridDisplay.getParent().getX(), 
                 gridDisplay.getParent().getY(), 
                 GameConstants.GRID_WIDTH_TILE * GameConstants.TILE_WIDTH_PX,
                 GameConstants.GRID_HEIGHT_TILE * GameConstants.TILE_HEIGHT_PX);
+        roomOverlay.setTouchable(Touchable.disabled);
+        this.setTouchable(Touchable.disabled);
+        roomOverlay.setVisible(false);
+        this.setVisible(false);
         
         this.addListener(new InputListener() {
             @Override
@@ -36,6 +48,15 @@ public class ActivationOverlay extends Actor {
                     
                     for (PostActivationAction action : postActivationActions) {
                         action.act(gameState);
+                    }
+                    
+                    roomOverlay.setTouchable(Touchable.disabled);
+                    ActivationOverlay.this.setTouchable(Touchable.disabled);
+                    roomOverlay.setVisible(false);
+                    ActivationOverlay.this.setVisible(false);
+                    
+                    for (Group eg : exclusiveGroups) {
+                        eg.setTouchable(Touchable.enabled);
                     }
                     return true;
                 }
@@ -51,5 +72,17 @@ public class ActivationOverlay extends Actor {
                 return false;
             }
         });
+    }
+    
+    public void enable() {
+        roomOverlay.setTouchable(Touchable.enabled);
+        this.setTouchable(Touchable.enabled);
+        
+        roomOverlay.setVisible(true);
+        this.setVisible(true);
+
+        for (Group eg : exclusiveGroups) {
+            eg.setTouchable(Touchable.disabled);
+        }
     }
 }
