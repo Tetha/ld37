@@ -3,7 +3,6 @@ package org.subquark.tetris_station.cards;
 import org.subquark.tetris_station.GameConstants;
 import org.subquark.tetris_station.GameState;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;

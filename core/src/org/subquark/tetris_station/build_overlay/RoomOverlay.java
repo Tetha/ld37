@@ -1,11 +1,9 @@
 package org.subquark.tetris_station.build_overlay;
 
 import org.subquark.tetris_station.GameConstants;
-import org.subquark.tetris_station.GameState;
 import org.subquark.tetris_station.rooms.Room;
 import org.subquark.tetris_station.rooms.RoomGrid;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;

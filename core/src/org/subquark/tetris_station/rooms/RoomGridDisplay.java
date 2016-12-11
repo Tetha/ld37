@@ -1,7 +1,6 @@
 package org.subquark.tetris_station.rooms;
 
 import org.subquark.tetris_station.GameConstants;
-import org.subquark.tetris_station.build_overlay.BuildOverlay;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
