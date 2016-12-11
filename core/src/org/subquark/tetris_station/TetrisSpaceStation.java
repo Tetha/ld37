@@ -49,14 +49,15 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    stage = new Stage(new StretchViewport(800, 600));
 	    
 	    GameState gameState = new GameState();   
-        gameState.hostileShips = 5;
-        gameState.availableMetal = 12;
-        gameState.shipPosition = 2;
-        gameState.hyperPointsEarned = 7;
+        gameState.hostileShips = 0;
+        gameState.availableMetal = 3;
+        gameState.shipPosition = 0;
+        gameState.hyperPointsEarned = 0;
         gameState.maxCards = 5;
         gameState.health = 6;
         gameState.deck = DeckBuilder.createDefaultDeck();
-        gameState.refreshHand();
+        gameState.cards.add(Card.createBuildMetalGenerator());
+        gameState.cards.add(Card.createBuildEngineCard());
         
         
         Group gameArea = new Group();

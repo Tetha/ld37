@@ -8,6 +8,8 @@ import org.subquark.tetris_station.cards.actions.BuildEngineAction;
 import org.subquark.tetris_station.cards.actions.BuildMetalGenerator;
 import org.subquark.tetris_station.cards.actions.BuildWarpCore;
 import org.subquark.tetris_station.cards.actions.CardAction;
+import org.subquark.tetris_station.cards.condition.MaterialCost;
+import org.subquark.tetris_station.cards.condition.PlayCondition;
 
 public class Card {
     public String headline;
@@ -15,6 +17,10 @@ public class Card {
     public CardAction playAction;
     public String playDescription;
     public String discardDescription;
+    
+    private PlayCondition condition;
+    public boolean canPlay;
+    public String cannotPlayReason;
     
     public Card() {}
 
@@ -36,6 +42,7 @@ public class Card {
         
         result.playDescription = "Build a Defense Gun\nIf you activate a Defense gun,\nIt destroys 1 enemy fighter";
         
+        result.condition = new MaterialCost(GameConstants.DEFENSE_GUN_COST);
         return result;
     }
 
@@ -46,6 +53,7 @@ public class Card {
         
         result.playDescription = "Build an Energy Transmitter\nIf you activate an energy transmitter,\nIt activates adjacent rooms";
 
+        result.condition = new MaterialCost(GameConstants.ENERGY_TRANSMITTER_COST);
         return result;
     }
     
@@ -56,6 +64,8 @@ public class Card {
         
         result.playDescription = "Build an Energy Transmitter\nIf you activate an energy transmitter,\nIt activates adjacent rooms";
 
+        result.condition = new MaterialCost(GameConstants.ENERGY_TRANSMITTER_COST);
+        
         return result;
     }
     
@@ -66,6 +76,8 @@ public class Card {
         
         result.playDescription = "Build an Engine\nIf you activate an engine,\nIt moves you 1 spot away from the sun";
         
+        result.condition = new MaterialCost(GameConstants.ENGINE_COST);
+
         return result;
     }
     
@@ -76,6 +88,8 @@ public class Card {
         
         result.playDescription = "Build a Metal Generator\nIf you activate a Metal Generator\nIt generates 1 unit of Metal";
         
+        result.condition = new MaterialCost(GameConstants.METAL_GENERATOR_COST);
+
         return result;
     }
     
@@ -85,6 +99,8 @@ public class Card {
         result.playAction = new BuildWarpCore();
         
         result.playDescription = "Build a warp core\nIf you activate a Warp Core, \nYou gain a Warp-Point.\nGain " +  GameConstants.MAX_HYPER_POINTS + " points to win!";
+        
+        result.condition = new MaterialCost(GameConstants.WARP_CORE_COST);
         
         return result;
     }

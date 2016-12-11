@@ -24,4 +24,10 @@ public class GameConstants {
     
     public static final int METAL_PER_GENERATOR = 1;
     public static final int FIGHTERS_PER_GUN = 1;
+    
+    public static final int DEFENSE_GUN_COST = 2;
+    public static final int ENGINE_COST = 2;
+    public static final int ENERGY_TRANSMITTER_COST = 4;
+    public static final int METAL_GENERATOR_COST = 1;
+    public static final int WARP_CORE_COST = 2;
 }

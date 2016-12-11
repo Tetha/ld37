@@ -42,7 +42,7 @@ public class BigCardOverlay {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 if (display.getCard().playAction != null) {
-                    display.getCard().playAction.run(buildOverlay);
+                    display.getCard().playAction.run(gameState, buildOverlay);
                     
                 }
                 gameState.cards.remove(cardIndex);
