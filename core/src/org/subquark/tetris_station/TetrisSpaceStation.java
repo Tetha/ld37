@@ -115,6 +115,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
                                                                     gameState,
                                                                     lossScreen,
                                                                     winScreen,
+                                                                    bigGreenScreen,
                                                                     Arrays.asList(scores, hand));
         gameArea.addActor(activationOverlay);      
 
@@ -123,12 +124,15 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         Table cardLayout = new Table();
         BigCardOverlay bigCardOverlay = new BigCardOverlay(gameArea, cardLayout, buildOverlay, gameState);
         stage.addActor(cardLayout);
+
         
 	    gameArea.addActor(hand);
 	    new HandDisplay(gameState, hand, bigCardOverlay);
-	    	    
+	    
+	    LabelStyle instructionStyle = new LabelStyle();
+	    instructionStyle.font = new BitmapFont();
 	    gameArea.addActor(scores);
-	    scores.setX(620);
+	    scores.setX(550);
 	    scores.setHeight(600);
 	    scores.setWidth(800 - 620);
 
@@ -136,40 +140,48 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    scores.add(healthDisplay)
 	          .width(healthDisplay.getWidth())
 	          .height(healthDisplay.getHeight())
-	          .pad(10)
-	          .row();
+	          .pad(10);
+	    scores.add(new Label("Health", instructionStyle)).row();
 	    
 	    HostileShipDisplay hostileShipDisplay = new HostileShipDisplay(gameState);
 	    scores.add(hostileShipDisplay)
 	          .width(hostileShipDisplay.getWidth())
 	          .height(hostileShipDisplay.getHeight())
-	          .pad(10)
-	          .row();
+	          .pad(10);
+	    scores.add(new Label("Hostiles\n(They hurt)", instructionStyle)).row();
 	    
 	    MetalDisplay metalDisplay = new MetalDisplay(gameState);
 	    scores.add(metalDisplay)
 	          .width(metalDisplay.getWidth())
 	          .height(metalDisplay.getHeight())
-	          .pad(10)
-	          .row();
+	          .pad(10);
+	    scores.add(new Label("Metal\n(building!)", instructionStyle)).row();
 	    
 	    SolarDistanceDisplay distanceDisplay = new SolarDistanceDisplay(gameState);
 	    scores.add(distanceDisplay)
 	          .width(distanceDisplay.getWidth())
 	          .height(distanceDisplay.getHeight())
-	          .pad(10)
-	          .row();
+	          .pad(10);
+	    scores.add(new Label("Solar\nDistance\n(It'll burn)", instructionStyle)).row();
 	    
 	    HyperPointDisplay hyperDisplay = new HyperPointDisplay(gameState);
 	    scores.add(hyperDisplay)
 	          .width(hyperDisplay.getWidth())
 	          .height(hyperDisplay.getHeight())
-	          .pad(10)
-	          .row();
+	          .pad(10);
+	    scores.add(new Label("Warp\nGet 10 to win", instructionStyle)).row();
+	    
+
+	    Label playCardInstructions = new Label("Click on a card\ndown there", instructionStyle);
+	    scores.add(playCardInstructions).pad(10).colspan(2).row();
+	    
+	    Label activationInstructions = new Label("Click on a room\nActivated rooms are highlighted", instructionStyle);
+	    scores.add(activationInstructions).colspan(2).row();
+	    activationInstructions.setVisible(false);
 	    
         TextButtonStyle style = new TextButtonStyle();
         style.font = new BitmapFont();
-        Button activateButton = new TextButton("Activate one Room\nand End Turn", style);
+        Button activateButton = new TextButton("Play more cards\nor click here\n to activate one room\nand end turn", style);
         activateButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -177,8 +189,42 @@ public class TetrisSpaceStation extends ApplicationAdapter {
                 activationOverlay.enable();
             }
         });
-        scores.add(activateButton).pad(10).row();
+        scores.add(activateButton).pad(10).colspan(2).row();
+        activateButton.setVisible(false);
+        activateButton.setTouchable(Touchable.disabled);
         
+        Runnable showActivationInstructions = new Runnable() {
+            @Override
+            public void run() {
+                activateButton.setVisible(false);
+                activateButton.setTouchable(Touchable.disabled);
+                
+                activationInstructions.setVisible(true);
+            }
+        };
+        activationOverlay.addActivationEnabledCallback(showActivationInstructions);
+        
+        Runnable showInstructions = new Runnable() {
+            @Override
+            public void run() {
+                activationInstructions.setVisible(false);
+                playCardInstructions.setVisible(true);           
+           }
+        };
+        activationOverlay.addEndTurnCallback(showInstructions);
+        
+        Runnable enableActivateButton = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("Enabling button again");
+                activateButton.setVisible(true);
+                activateButton.setTouchable(Touchable.enabled);
+                
+                playCardInstructions.setVisible(false);
+            }
+        };
+        bigCardOverlay.addCardPlayedCallback(enableActivateButton);
+        bigCardOverlay.addCardDiscardedCallback(enableActivateButton);
 /*        
 	    Room transmitter1_1 =Room.createEnergyTransmitter1();
 	    transmitter1_1.setTileX(4);

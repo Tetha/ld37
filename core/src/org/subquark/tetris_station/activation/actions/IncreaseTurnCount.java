@@ -5,6 +5,9 @@ import org.subquark.tetris_station.GameState;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
-public interface PostActivationAction {
-    void act(GameState gs, Group lossScreen, Group winScreen, Label winLabel);
+public class IncreaseTurnCount implements PostActivationAction {
+    @Override
+    public void act(GameState gs, Group lossScreen, Group winScreen, Label winLabel) {
+        gs.turns += 1;
+    }
 }

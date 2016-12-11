@@ -8,8 +8,11 @@ import org.subquark.tetris_station.cards.actions.BuildEngineAction;
 import org.subquark.tetris_station.cards.actions.BuildMetalGenerator;
 import org.subquark.tetris_station.cards.actions.BuildWarpCore;
 import org.subquark.tetris_station.cards.actions.CardAction;
+import org.subquark.tetris_station.cards.condition.Impossible;
 import org.subquark.tetris_station.cards.condition.MaterialCost;
 import org.subquark.tetris_station.cards.condition.PlayCondition;
+import org.subquark.tetris_station.cards.discard_action.DiscardAction;
+import org.subquark.tetris_station.cards.discard_action.SpawnFighters;
 
 public class Card {
     public String headline;
@@ -21,6 +24,8 @@ public class Card {
     public PlayCondition playCondition;
     public boolean canPlay;
     public String cannotPlayReason;
+    protected DiscardAction discardAction;
+    public int cost = -1;
     
     public Card() {}
 
@@ -31,6 +36,10 @@ public class Card {
         this.playDescription = c.playDescription;
         this.discardDescription = c.discardDescription;
         this.playCondition = c.playCondition;
+        this.canPlay = c.canPlay;
+        this.cannotPlayReason = c.cannotPlayReason;
+        this.discardAction = c.discardAction;
+        this.cost = c.cost;
     }
     
     public Card shallowClone() {
@@ -43,6 +52,7 @@ public class Card {
         
         result.playDescription = "Build a Defense Gun\nIf you activate a Defense gun,\nIt destroys 1 enemy fighter";
         
+        result.cost = GameConstants.DEFENSE_GUN_COST;
         result.playCondition = new MaterialCost(GameConstants.DEFENSE_GUN_COST);
         return result;
     }
@@ -54,6 +64,7 @@ public class Card {
         
         result.playDescription = "Build an Energy Transmitter\nIf you activate an energy transmitter,\nIt activates adjacent rooms";
 
+        result.cost = GameConstants.ENERGY_TRANSMITTER_COST;
         result.playCondition = new MaterialCost(GameConstants.ENERGY_TRANSMITTER_COST);
         return result;
     }
@@ -65,6 +76,7 @@ public class Card {
         
         result.playDescription = "Build an Energy Transmitter\nIf you activate an energy transmitter,\nIt activates adjacent rooms";
 
+        result.cost = GameConstants.ENERGY_TRANSMITTER_COST;
         result.playCondition = new MaterialCost(GameConstants.ENERGY_TRANSMITTER_COST);
         
         return result;
@@ -77,6 +89,7 @@ public class Card {
         
         result.playDescription = "Build an Engine\nIf you activate an engine,\nIt moves you 1 spot away from the sun";
         
+        result.cost = GameConstants.ENGINE_COST;
         result.playCondition = new MaterialCost(GameConstants.ENGINE_COST);
 
         return result;
@@ -89,6 +102,7 @@ public class Card {
         
         result.playDescription = "Build a Metal Generator\nIf you activate a Metal Generator\nIt generates 1 unit of Metal";
         
+        result.cost = GameConstants.METAL_GENERATOR_COST;
         result.playCondition = new MaterialCost(GameConstants.METAL_GENERATOR_COST);
 
         return result;
@@ -101,8 +115,42 @@ public class Card {
         
         result.playDescription = "Build a warp core\nIf you activate a Warp Core, \nYou gain a Warp-Point.\nGain " +  GameConstants.MAX_HYPER_POINTS + " points to win!";
         
+        result.cost = GameConstants.WARP_CORE_COST;
         result.playCondition = new MaterialCost(GameConstants.WARP_CORE_COST);
         
+        return result;
+    }
+    
+    public static Card createSmallHostileFleet() {
+        Card result = new Card();
+        result.headline = "Small Scouts";
+        
+        result.playCondition = new Impossible();
+        
+        result.discardDescription = "Two hostile fighters warp in.";
+        result.discardAction = new SpawnFighters(2);
+        return result;
+    }
+    
+    public static Card createMediumHostileFleet() {
+        Card result = new Card();
+        result.headline = "Patrol Group";
+        
+        result.playCondition = new Impossible();
+        
+        result.discardDescription = "Three hostile fighters warp in.";
+        result.discardAction = new SpawnFighters(3);
+        return result;
+    }
+    
+    public static Card createLargeHostileFleet() {
+        Card result = new Card();
+        result.headline = "Combat Group";
+        
+        result.playCondition = new Impossible();
+        
+        result.discardDescription = "Five hostile fighters warp in.";
+        result.discardAction = new SpawnFighters(5);
         return result;
     }
 }

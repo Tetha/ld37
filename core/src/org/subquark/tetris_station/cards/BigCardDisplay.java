@@ -23,6 +23,7 @@ public class BigCardDisplay extends Actor {
     private Table layout;
     
     private Label cardHeading;
+    private Label cost;
     private Label onPlayText;
     private Label onDiscardText;
     
@@ -44,11 +45,14 @@ public class BigCardDisplay extends Actor {
         style.font = font;
         
         this.cardHeading = new Label("", style);
+        this.cost = new Label("", style);
         this.onPlayText = new Label("", style);
         this.onDiscardText = new Label("", style);
         this.cannotPlayText = new Label("", style);
         
-        this.layout.add(cardHeading).row();
+        this.layout.add(cardHeading);
+        this.layout.add(cost);
+        this.layout.row();
         
         this.layout.add(cannotPlayText).padTop(30).row();
         
@@ -66,6 +70,14 @@ public class BigCardDisplay extends Actor {
     public void setCard(Card card) {
         this.card = card;
         this.cardHeading.setText(card.headline);
+        
+        if (this.card.cost > 0) {
+            this.cost.setText(this.card.cost + "Metal");
+            this.cost.setVisible(true);
+        } else {
+            this.cost.setText("");;
+            this.cost.setVisible(false);
+        }
         
         if (card.playDescription == null) {
             onPlayText.setText("None");

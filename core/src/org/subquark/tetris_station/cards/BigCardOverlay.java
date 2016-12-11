@@ -1,5 +1,8 @@
 package org.subquark.tetris_station.cards;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.subquark.tetris_station.GameState;
 import org.subquark.tetris_station.build_overlay.BuildOverlay;
 
@@ -21,6 +24,9 @@ public class BigCardOverlay {
     private GameState gameState;
     
     private Button playButton;
+    
+    private List<Runnable> onCardPlayCallbacks = new ArrayList<Runnable>();
+    private List<Runnable> onCardDiscardedCallbacks = new ArrayList<Runnable>();
     
     public BigCardOverlay(Group gameGroup, Table layout, final BuildOverlay buildOverlay, final GameState gameState) {
         this.layout = layout;
@@ -51,10 +57,29 @@ public class BigCardOverlay {
                     
                 }
                 gameState.cards.remove(cardIndex);
+                
+                for (Runnable r : onCardPlayCallbacks) {
+                    r.run();
+                }
                 removeCard();
             }
         });
         Button discardButton = new TextButton("Discard", style);
+        discardButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (display.getCard().discardAction != null) {
+                    display.getCard().discardAction.run(gameState, buildOverlay);
+                    
+                }
+                gameState.cards.remove(cardIndex);
+                
+                for (Runnable r : onCardDiscardedCallbacks) {
+                    r.run();
+                }
+                removeCard();
+            }
+        });
 
         Table buttonLayout = new Table();
         
@@ -69,6 +94,14 @@ public class BigCardOverlay {
         this.layout.setTouchable(Touchable.disabled);
         this.layout.setVisible(false);
     }
+    
+    public void addCardPlayedCallback(Runnable callback) {
+        this.onCardPlayCallbacks.add(callback);
+    }
+    public void addCardDiscardedCallback(Runnable callback) {
+        this.onCardDiscardedCallbacks.add(callback);
+    }
+
     
     public void setCard(int index, Card c) {
         this.cardIndex = index;

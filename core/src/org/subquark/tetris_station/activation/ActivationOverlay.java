@@ -21,17 +21,22 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class ActivationOverlay extends Actor {
     final List<PostActivationAction> postActivationActions = new ArrayList<>();
     private RoomActivationOverlay roomOverlay;
     private List<Group> exclusiveGroups;
     
+    private List<Runnable> activationSelectionStartedCallbacks = new ArrayList<Runnable>();
+    private List<Runnable> turnEndCallbacks = new ArrayList<Runnable>();
+    
     public ActivationOverlay(final RoomActivationOverlay roomOverlay,
                              final RoomGridDisplay gridDisplay,
                              final GameState gameState,
                              Group lossScreen,
                              Group winScreen,
+                             Label winLabel,
                              List<Group> exclusiveGroups) {
         postActivationActions.add(new ApplyDamageFromFighters());
         postActivationActions.add(new ApplyDamageFromSun());
@@ -63,7 +68,11 @@ public class ActivationOverlay extends Actor {
                     roomOverlay.activateRooms();
                     
                     for (PostActivationAction action : postActivationActions) {
-                        action.act(gameState, lossScreen, winScreen);
+                        action.act(gameState, lossScreen, winScreen, winLabel);
+                    }
+                    
+                    for(Runnable r : turnEndCallbacks) {
+                        r.run();
                     }
                     
                     roomOverlay.setTouchable(Touchable.disabled);
@@ -89,6 +98,14 @@ public class ActivationOverlay extends Actor {
             }
         });
     }
+
+    public void addActivationEnabledCallback(Runnable r) {
+        this.activationSelectionStartedCallbacks.add(r);
+    }
+    
+    public void addEndTurnCallback(Runnable r) {
+        this.turnEndCallbacks.add(r);
+    }
     
     public void enable() {
         roomOverlay.setTouchable(Touchable.enabled);
@@ -99,6 +116,10 @@ public class ActivationOverlay extends Actor {
 
         for (Group eg : exclusiveGroups) {
             eg.setTouchable(Touchable.disabled);
+        }
+        
+        for(Runnable r : activationSelectionStartedCallbacks) {
+            r.run();
         }
     }
 }

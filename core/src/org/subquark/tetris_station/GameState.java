@@ -7,6 +7,9 @@ import org.subquark.tetris_station.cards.Card;
 import org.subquark.tetris_station.deck.Deck;
 
 public class GameState {
+    public int turns;
+    public boolean cardPlayedThisTurn;
+    
     public int hostileShips;
     public int availableMetal;
     public int shipPosition;
