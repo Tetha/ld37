@@ -70,7 +70,7 @@ public class RoomActivationOverlay extends Actor {
         roomsToProcess.add(startingRoomIndex);
         
         while (!roomsToProcess.isEmpty()) {
-            int currentRoomIndex = roomsToProcess.pop();
+            int currentRoomIndex = roomsToProcess.removeFirst();
             Room currentRoom = rooms.getRoom(currentRoomIndex);
             if (activeRooms.contains(currentRoom)) continue;
             

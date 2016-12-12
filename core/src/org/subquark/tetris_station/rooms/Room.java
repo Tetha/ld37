@@ -189,6 +189,6 @@ public class Room extends Actor {
     
     @Override
     public String toString() {
-        return String.format("Room[tileX=%d, tileY=%d, type=%s]", tileX, tileY, type);
+        return ""; // String.format("Room[tileX=%d, tileY=%d, type=%s]", tileX, tileY, type);
     }
 }

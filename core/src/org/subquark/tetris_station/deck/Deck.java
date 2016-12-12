@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import org.subquark.tetris_station.cards.Card;
 
@@ -21,13 +22,17 @@ public class Deck {
             currentStack.add(c.shallowClone());
         }
         
-        Collections.shuffle(currentStack);
+	Random random = new Random();
+        for(int index = 0; index < currentStack.size(); index += 1) {  
+            Collections.swap(currentStack, index, index + random.nextInt(currentStack.size() - index));  
+        }
     }
+
     
     public Card draw() {
         if (currentStack.isEmpty()) {
             shuffle();
         }
-        return currentStack.pop();
+        return currentStack.removeFirst();
     }
 }

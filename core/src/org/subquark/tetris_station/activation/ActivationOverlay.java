@@ -24,7 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class ActivationOverlay extends Actor {
-    final List<PostActivationAction> postActivationActions = new ArrayList<>();
+    final List<PostActivationAction> postActivationActions = new ArrayList<PostActivationAction>();
     private RoomActivationOverlay roomOverlay;
     private List<Group> exclusiveGroups;
     
@@ -34,10 +34,10 @@ public class ActivationOverlay extends Actor {
     public ActivationOverlay(final RoomActivationOverlay roomOverlay,
                              final RoomGridDisplay gridDisplay,
                              final GameState gameState,
-                             Group lossScreen,
-                             Group winScreen,
-                             Label winLabel,
-                             List<Group> exclusiveGroups) {
+                             final Group lossScreen,
+                             final Group winScreen,
+                             final Label winLabel,
+                             final List<Group> exclusiveGroups) {
         postActivationActions.add(new ApplyDamageFromFighters());
         postActivationActions.add(new ApplyDamageFromSun());
         postActivationActions.add(new MoveCloserToSun());

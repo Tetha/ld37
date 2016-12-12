@@ -71,7 +71,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         redBox.setColor(Color.RED);
         redBox.fill();
         labelStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(redBox)));
-        Label bigRedScreen = new Label("She' breaking apart! you hear someone yell.\nThen loud screeching, crashing, tearing...\nThen nothing.\nYou lost :(", labelStyle);
+        final Label bigRedScreen = new Label("She' breaking apart! you hear someone yell.\nThen loud screeching, crashing, tearing...\nThen nothing.\nYou lost :(", labelStyle);
         bigRedScreen.setWidth(800);
         bigRedScreen.setHeight(600);
         lossScreen.addActor(bigRedScreen);
@@ -87,7 +87,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
         greenBox.setColor(0, 0.8f, 0, 1f);
         greenBox.fill();
         winLabelStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(greenBox)));
-        Label bigGreenScreen = new Label("You hear the warp condensators discharge with a loud screeching\nThe solar system disappears\nYou have won :)", winLabelStyle);
+        final Label bigGreenScreen = new Label("You hear the warp condensators discharge with a loud screeching\nThe solar system disappears\nYou have won :)", winLabelStyle);
         bigGreenScreen.setWidth(800);
         bigGreenScreen.setHeight(600);
         winScreen.addActor(bigGreenScreen);
@@ -110,7 +110,7 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 
         RoomActivationOverlay activationRoomOverlay = new RoomActivationOverlay(grid, gameState);
         rooms.addActor(activationRoomOverlay);
-        ActivationOverlay activationOverlay = new ActivationOverlay(activationRoomOverlay,
+        final ActivationOverlay activationOverlay = new ActivationOverlay(activationRoomOverlay,
                                                                     grid.getDisplay(),
                                                                     gameState,
                                                                     lossScreen,
@@ -177,17 +177,17 @@ public class TetrisSpaceStation extends ApplicationAdapter {
 	    scores.add(new Label("Warp\nGet 10 to win", instructionStyle)).row();
 	    
 
-	    Label playCardInstructions = new Label("Click on a card\ndown there", instructionStyle);
+	    final Label playCardInstructions = new Label("Click on a card\ndown there", instructionStyle);
 	    scores.add(playCardInstructions).pad(10).colspan(2).row();
 	    
-	    Label activationInstructions = new Label("Click on a room\nActivated rooms are highlighted", instructionStyle);
+	    final Label activationInstructions = new Label("Click on a room\nActivated rooms are highlighted", instructionStyle);
 	    scores.add(activationInstructions).colspan(2).row();
 	    activationInstructions.setVisible(false);
 	    
         TextButtonStyle style = new TextButtonStyle();
         style.font = new BitmapFont();
         style.up = new TextureRegionDrawable(new TextureRegion(new Texture(greyBox)));
-        Button activateButton = new TextButton("Play more cards\nor click here\n to activate one room\nand end turn", style);
+        final Button activateButton = new TextButton("Play more cards\nor click here\n to activate one room\nand end turn", style);
         activateButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
